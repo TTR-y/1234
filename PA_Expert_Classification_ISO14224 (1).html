@@ -869,8 +869,19 @@ style="width:80px;height:80px;object-fit:contain;border-radius:4px;"
       <span class="tb-tab-num">P2</span>
     </button>
   </div>
-  <div class="tb-right">
-    <div class="tb-chip tbc-ghost">MARS 2026</div>
+  <div class="tb-right" style="gap:20px;">
+<div class="tb-chip tbc-ghost" id="datetime"></div>
+<script>
+function updateTime() {
+  const now = new Date();
+  const options = { day:'2-digit', month:'short', year:'numeric' };
+  const date = now.toLocaleDateString('fr-FR', options).toUpperCase();
+  const time = now.toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit' });
+  document.getElementById('datetime').textContent = date + ' · ' + time;
+}
+updateTime();
+setInterval(updateTime, 1000);
+</script>
   
 <div class="tb-logo" style="border:none;background:transparent;padding:2px;">
   <img 

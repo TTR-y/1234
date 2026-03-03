@@ -1,0 +1,1824 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PA · Équipements — Classification & ISO 14224</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════
+   DESIGN SYSTEM — INDUSTRIAL ENGINEERING GRADE
+   Cabinet d'ingénierie · Référentiel technique international
+═══════════════════════════════════════════════════ */
+:root {
+  /* Palette principale — Light Professional */
+  --canvas:   #f0f2f5;
+  --white:    #ffffff;
+  --panel:    #f7f8fa;
+  --ink:      #0b0f18;
+  --ink2:     #1c2535;
+  --ink3:     #2d3a4d;
+  --sub:      #4a5568;
+  --muted:    #8693a4;
+  --pale:     #b8c4d0;
+  --line:     #dde2ea;
+  --line2:    #eaecf0;
+
+  /* Accents */
+  --blue:     #1558d6;
+  --blue2:    #2067f5;
+  --blue3:    #4d8cff;
+  --blue-bg:  rgba(21,88,214,.07);
+  --blue-bd:  rgba(21,88,214,.18);
+
+  --red:      #b91c1c;
+  --red2:     #dc2626;
+  --red-bg:   rgba(185,28,28,.07);
+  --red-bd:   rgba(185,28,28,.18);
+
+  --teal:     #0d6e5a;
+  --teal2:    #0f8a72;
+  --teal-bg:  rgba(13,110,90,.07);
+  --teal-bd:  rgba(13,110,90,.18);
+
+  --amber:    #92400e;
+  --amber2:   #b45309;
+  --amber-bg: rgba(146,64,14,.07);
+  --amber-bd: rgba(146,64,14,.18);
+
+  --green:    #166534;
+  --green-bg: rgba(22,101,52,.07);
+  --green-bd: rgba(22,101,52,.18);
+
+  --violet:   #5b21b6;
+  --violet-bg:rgba(91,33,182,.07);
+  --violet-bd:rgba(91,33,182,.18);
+
+  /* Typography */
+  --font:     'IBM Plex Sans', sans-serif;
+  --mono:     'IBM Plex Mono', monospace;
+
+  /* Shadows */
+  --sh1: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+  --sh2: 0 4px 12px rgba(0,0,0,.08), 0 2px 4px rgba(0,0,0,.04);
+  --sh3: 0 8px 24px rgba(0,0,0,.10), 0 4px 8px rgba(0,0,0,.05);
+}
+
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--canvas);
+  color: var(--ink);
+  font-size: 13px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── BACKGROUND TEXTURE ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    linear-gradient(var(--line2) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line2) 1px, transparent 1px);
+  background-size: 32px 32px;
+  opacity: .6;
+}
+
+.page-wrap { position: relative; z-index: 1; }
+
+/* ══════════════════════════════════════
+   TOP NAVIGATION BAR (fixed)
+══════════════════════════════════════ */
+.topbar {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--ink2);
+  border-bottom: 2px solid var(--blue);
+  display: flex; align-items: center; justify-content: space-between;
+  height: 56px; padding: 0 32px;
+  box-shadow: var(--sh2);
+}
+
+.tb-brand { display: flex; align-items: center; gap: 14px; }
+.tb-logo {
+  width: 38px; height: 38px; border-radius: 7px;
+  border: 1.5px dashed rgba(255,255,255,.2);
+  background: rgba(255,255,255,.05);
+  display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 2px;
+  flex-shrink: 0;
+}
+.tb-logo span:first-child { font-size: 14px; opacity: .25; }
+.tb-logo span:last-child { font-family: var(--mono); font-size: 6px; color: rgba(255,255,255,.25); letter-spacing: .8px; }
+.tb-name {
+  font-size: 14px; font-weight: 700; color: #fff; letter-spacing: -.2px;
+}
+.tb-sub {
+  font-family: var(--mono); font-size: 9px; color: rgba(255,255,255,.35);
+  letter-spacing: 2px; text-transform: uppercase; margin-top: 2px;
+}
+
+/* Page tabs */
+.tb-tabs { display: flex; gap: 2px; }
+.tb-tab {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 20px; border-radius: 5px;
+  font-size: 12px; font-weight: 600;
+  color: rgba(255,255,255,.45);
+  cursor: pointer; border: none; background: transparent;
+  transition: all .18s; letter-spacing: .2px;
+}
+.tb-tab:hover { color: rgba(255,255,255,.8); background: rgba(255,255,255,.07); }
+.tb-tab.active {
+  background: var(--blue2); color: #fff;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.15);
+}
+.tb-tab-num {
+  font-family: var(--mono); font-size: 9px; font-weight: 600;
+  padding: 1px 6px; border-radius: 3px;
+  background: rgba(255,255,255,.12); color: rgba(255,255,255,.6);
+}
+.tb-tab.active .tb-tab-num { background: rgba(255,255,255,.2); color: #fff; }
+
+.tb-right { display: flex; align-items: center; gap: 8px; }
+.tb-chip {
+  font-family: var(--mono); font-size: 9px; font-weight: 600;
+  padding: 5px 12px; border-radius: 4px; letter-spacing: 1px; text-transform: uppercase;
+}
+.tbc-ghost { border: 1px solid rgba(255,255,255,.12); color: rgba(255,255,255,.4); }
+.tbc-blue { background: rgba(32,103,245,.3); border: 1px solid rgba(32,103,245,.5); color: #7eb4ff; }
+.tbc-red { background: rgba(185,28,28,.3); border: 1px solid rgba(220,38,38,.5); color: #fca5a5; }
+
+/* ══════════════════════════════════════
+   PAGE CONTAINERS
+══════════════════════════════════════ */
+.page { display: none; }
+.page.active { display: block; }
+.inner { max-width: 1520px; margin: 0 auto; padding: 28px 32px 56px; }
+
+/* ══════════════════════════════════════
+   PAGE HEADER BAND
+══════════════════════════════════════ */
+.page-hdr {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 22px 26px;
+  margin-bottom: 22px;
+  display: flex; align-items: center; justify-content: space-between;
+  box-shadow: var(--sh1);
+  position: relative; overflow: hidden;
+}
+.page-hdr::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+  background: var(--blue2);
+}
+.ph-left {}
+.ph-eyebrow {
+  font-family: var(--mono); font-size: 9px; font-weight: 600;
+  color: var(--blue); letter-spacing: 2.5px; text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.ph-title { font-size: 20px; font-weight: 700; color: var(--ink); letter-spacing: -.4px; }
+.ph-desc { font-size: 11px; color: var(--sub); margin-top: 4px; }
+.ph-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.ph-badge {
+  font-family: var(--mono); font-size: 10px; font-weight: 600;
+  padding: 6px 14px; border-radius: 5px; letter-spacing: .5px;
+}
+.phb-blue { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue-bd); }
+.phb-red  { background: var(--red-bg);  color: var(--red);  border: 1px solid var(--red-bd); }
+.phb-teal { background: var(--teal-bg); color: var(--teal); border: 1px solid var(--teal-bd); }
+
+/* ══════════════════════════════════════
+   KPI ROW
+══════════════════════════════════════ */
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--line);
+  margin-bottom: 22px;
+  box-shadow: var(--sh1);
+}
+.kpi {
+  background: var(--white);
+  padding: 16px 18px 14px;
+  position: relative;
+  transition: background .15s;
+}
+.kpi:hover { background: var(--panel); }
+.kpi-accent {
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+}
+.kpi-lbl {
+  font-family: var(--mono); font-size: 9px; font-weight: 600;
+  color: var(--muted); letter-spacing: 2px; text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.kpi-val {
+  font-size: 28px; font-weight: 700; color: var(--ink);
+  letter-spacing: -1.5px; line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.kpi-sub { font-size: 10px; color: var(--muted); margin-top: 5px; }
+.kpi-tag {
+  position: absolute; bottom: 11px; right: 13px;
+  font-family: var(--mono); font-size: 8px; font-weight: 600;
+  padding: 1px 7px; border-radius: 3px; letter-spacing: .8px;
+}
+
+/* ══════════════════════════════════════
+   SECTION LABEL
+══════════════════════════════════════ */
+.sec-lbl {
+  display: flex; align-items: center; gap: 10px;
+  margin: 0 0 14px;
+}
+.sl-mark { width: 3px; height: 16px; border-radius: 2px; flex-shrink: 0; }
+.sl-text {
+  font-family: var(--mono); font-size: 9px; font-weight: 600;
+  color: var(--sub); letter-spacing: 2.5px; text-transform: uppercase;
+}
+.sl-line { flex: 1; height: 1px; background: var(--line); }
+.sl-count {
+  font-family: var(--mono); font-size: 9px; color: var(--muted);
+  padding: 2px 10px; border: 1px solid var(--line);
+  background: var(--white); border-radius: 3px;
+}
+
+/* ══════════════════════════════════════
+   ─────── PAGE 1 ───────
+   CLASSIFICATION U → Z → S
+══════════════════════════════════════ */
+
+/* UNIT ACCORDION */
+.unit-acc { margin-bottom: 16px; border-radius: 8px; overflow: hidden; box-shadow: var(--sh1); }
+
+.unit-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 20px;
+  height: 58px;
+  cursor: pointer; user-select: none;
+  transition: filter .15s;
+}
+.unit-head:hover { filter: brightness(.96); }
+
+.uh-left { display: flex; align-items: center; gap: 12px; }
+.uh-tog {
+  width: 24px; height: 24px; border-radius: 5px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; flex-shrink: 0;
+  transition: transform .2s;
+}
+.unit-acc.open .uh-tog { transform: rotate(90deg); }
+.uh-id {
+  font-family: var(--mono); font-size: 10px; font-weight: 600;
+  letter-spacing: 1.5px; padding: 2px 10px; border-radius: 4px;
+}
+.uh-name { font-size: 15px; font-weight: 700; letter-spacing: -.2px; }
+.uh-source {
+  font-family: var(--mono); font-size: 9px; font-weight: 500;
+  padding: 2px 9px; border-radius: 3px; letter-spacing: .5px;
+}
+.uh-stats { display: flex; align-items: center; gap: 6px; }
+.us {
+  text-align: center; padding: 5px 11px; border-radius: 4px; min-width: 56px;
+}
+.us-v { font-family: var(--mono); font-size: 14px; font-weight: 700; line-height: 1; }
+.us-l { font-size: 8px; margin-top: 2px; letter-spacing: 1.5px; text-transform: uppercase; }
+
+.unit-body { display: none; }
+.unit-acc.open .unit-body { display: block; }
+
+/* ZONE HEADER inside unit */
+.zone-strip {
+  display: flex; align-items: center; gap: 0;
+  padding: 8px 20px 8px 20px;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+}
+.zs-label {
+  font-family: var(--mono); font-size: 9px; font-weight: 600;
+  color: var(--muted); letter-spacing: 2px; text-transform: uppercase;
+  margin-right: 10px; padding: 2px 8px;
+  border: 1px solid var(--line); border-radius: 3px;
+  background: var(--white);
+}
+.zs-value {
+  font-family: var(--mono); font-size: 11px; font-weight: 600;
+  color: var(--ink2); flex: 1;
+}
+.zs-total {
+  font-family: var(--mono); font-size: 10px; color: var(--muted);
+}
+
+/* DATA TABLE */
+.data-table-wrap {
+  background: var(--white);
+  overflow-x: auto;
+}
+.data-table { width: 100%; border-collapse: collapse; }
+.data-table thead tr {
+  background: var(--panel);
+  border-bottom: 1px solid var(--line);
+}
+.data-table thead th {
+  padding: 9px 16px;
+  font-family: var(--mono); font-size: 8.5px; font-weight: 600;
+  color: var(--muted); text-transform: uppercase; letter-spacing: 1.8px;
+  text-align: left; white-space: nowrap;
+}
+.data-table thead th:first-child { padding-left: 22px; }
+.data-table tbody tr {
+  border-bottom: 1px solid var(--line2);
+  cursor: pointer; transition: background .1s;
+}
+.data-table tbody tr:hover { background: rgba(21,88,214,.03); }
+.data-table tbody tr:last-child { border-bottom: none; }
+.data-table tbody td {
+  padding: 12px 16px; vertical-align: middle;
+}
+.data-table tbody td:first-child { padding-left: 22px; }
+
+/* Cell types */
+.cell-code {
+  font-family: var(--mono); font-size: 11px; font-weight: 600;
+  color: var(--ink2);
+}
+.cell-num {
+  font-family: var(--mono); font-size: 12px; font-weight: 600;
+  color: var(--ink3); text-align: right;
+}
+.cell-num.c-blue  { color: var(--blue); }
+.cell-num.c-red   { color: var(--red); }
+.cell-num.c-teal  { color: var(--teal); }
+.cell-num.c-muted { color: var(--muted); }
+.cell-num.c-green { color: var(--green); }
+
+/* PROGRESS BAR inline */
+.pbar { display: flex; align-items: center; gap: 8px; min-width: 130px; }
+.pbar-track {
+  flex: 1; height: 5px; background: var(--line2); border-radius: 3px; overflow: hidden;
+}
+.pbar-fill {
+  height: 100%; border-radius: 3px;
+  background: var(--blue2);
+  transition: width 1.1s cubic-bezier(.16,1,.3,1);
+}
+.pbar-fill.high { background: var(--red2); }
+.pbar-fill.med  { background: var(--amber2); }
+.pbar-pct {
+  font-family: var(--mono); font-size: 10px; font-weight: 600;
+  color: var(--sub); min-width: 38px; text-align: right;
+}
+
+/* STATUS PILLS */
+.pill {
+  display: inline-flex; align-items: center;
+  padding: 3px 9px; border-radius: 4px;
+  font-family: var(--mono); font-size: 9px; font-weight: 600;
+  letter-spacing: .5px; white-space: nowrap;
+  border: 1px solid transparent;
+}
+.p-aa    { background: var(--red-bg);    color: var(--red);    border-color: var(--red-bd); }
+.p-ok    { background: var(--green-bg);  color: var(--green);  border-color: var(--green-bd); }
+.p-warn  { background: var(--amber-bg);  color: var(--amber);  border-color: var(--amber-bd); }
+.p-blue  { background: var(--blue-bg);   color: var(--blue);   border-color: var(--blue-bd); }
+.p-teal  { background: var(--teal-bg);   color: var(--teal);   border-color: var(--teal-bd); }
+
+/* EXPAND ROW */
+.exp-row { display: none; background: rgba(21,88,214,.025); }
+.exp-row.show { display: table-row; }
+.exp-row td { padding: 14px 22px 16px !important; }
+.exp-cards {
+  display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px;
+}
+.exp-card {
+  background: var(--white); border: 1px solid var(--line);
+  border-radius: 6px; padding: 10px 12px;
+}
+.ec-lbl {
+  font-family: var(--mono); font-size: 8px; font-weight: 600;
+  color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px;
+}
+.ec-val { font-size: 18px; font-weight: 700; color: var(--ink); letter-spacing: -.5px; }
+.ec-val.b { color: var(--blue); } .ec-val.r { color: var(--red); }
+.ec-val.t { color: var(--teal); } .ec-val.a { color: var(--amber); }
+.ec-val.g { color: var(--green); }
+
+/* ALERT STRIP */
+.alert-strip {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 22px;
+  border-top: 1px solid var(--amber-bd);
+  background: rgba(146,64,14,.03);
+  font-family: var(--mono); font-size: 9px; color: var(--amber);
+  letter-spacing: .5px;
+}
+.alert-icon { font-size: 12px; }
+
+/* UNIT COLOR THEMES */
+.unit-u03 .unit-head { background: var(--ink2); }
+.unit-u03 .uh-tog { background: rgba(255,255,255,.08); color: rgba(255,255,255,.5); }
+.unit-u03 .uh-id { background: rgba(32,103,245,.25); color: #7eb4ff; }
+.unit-u03 .uh-name { color: #fff; }
+.unit-u03 .uh-source { background: rgba(32,103,245,.2); color: #7eb4ff; }
+.unit-u03 .us { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.08); }
+.unit-u03 .us-v { color: rgba(255,255,255,.9); }
+.unit-u03 .us-l { color: rgba(255,255,255,.35); }
+.unit-u03 .us.r .us-v { color: #fca5a5; }
+.unit-u03 .us.t .us-v { color: #5eead4; }
+.unit-u03 .us.b .us-v { color: #93c5fd; }
+
+.unit-acap .unit-head { background: #0a3d30; }
+.unit-acap .uh-tog { background: rgba(255,255,255,.08); color: rgba(255,255,255,.5); }
+.unit-acap .uh-id { background: rgba(15,138,114,.3); color: #5eead4; }
+.unit-acap .uh-name { color: #fff; }
+.unit-acap .uh-source { background: rgba(15,138,114,.25); color: #5eead4; }
+.unit-acap .us { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.08); }
+.unit-acap .us-v { color: rgba(255,255,255,.9); }
+.unit-acap .us-l { color: rgba(255,255,255,.35); }
+.unit-acap .us.r .us-v { color: #fca5a5; }
+
+.unit-le .unit-head { background: #422006; }
+.unit-le .uh-tog { background: rgba(255,255,255,.08); color: rgba(255,255,255,.5); }
+.unit-le .uh-id { background: rgba(180,83,9,.35); color: #fcd34d; }
+.unit-le .uh-name { color: #fff; }
+.unit-le .uh-source { background: rgba(180,83,9,.3); color: #fcd34d; }
+.unit-le .us { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.08); }
+.unit-le .us-v { color: rgba(255,255,255,.9); }
+.unit-le .us-l { color: rgba(255,255,255,.35); }
+.unit-le .us.r .us-v { color: #fca5a5; }
+
+.unit-cap .unit-head { background: #422006; }
+.unit-cap .uh-tog { background: rgba(255,255,255,.08); color: rgba(255,255,255,.5); }
+.unit-cap .uh-id { background: rgba(180,83,9,.35); color: #fcd34d; }
+.unit-cap .uh-name { color: #fff; }
+.unit-cap .uh-source { background: rgba(180,83,9,.3); color: #fcd34d; }
+.unit-cap .us { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.08); }
+.unit-cap .us-v { color: rgba(255,255,255,.9); }
+.unit-cap .us-l { color: rgba(255,255,255,.35); }
+
+/* ══════════════════════════════════════
+   ─────── PAGE 2 ───────
+   ISO 14224 ARBORESCENCE
+══════════════════════════════════════ */
+
+/* ISO TOP INFO PANEL */
+.iso-info-panel {
+  display: grid; grid-template-columns: 260px 1fr;
+  gap: 0;
+  border: 1px solid var(--line); border-radius: 10px;
+  overflow: hidden; background: var(--white);
+  box-shadow: var(--sh1); margin-bottom: 22px;
+}
+.iso-left {
+  background: linear-gradient(160deg, #0f2352 0%, #1558d6 100%);
+  padding: 24px 26px;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.iso-std-code {
+  font-family: var(--mono); font-size: 32px; font-weight: 600;
+  color: #fff; letter-spacing: 2px; line-height: 1;
+}
+.iso-std-sub {
+  font-family: var(--mono); font-size: 9px; color: rgba(255,255,255,.45);
+  letter-spacing: 1.5px; margin-top: 6px; line-height: 1.6;
+  text-transform: uppercase;
+}
+.iso-scope {
+  margin-top: 16px; padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,.12);
+  font-size: 11px; color: rgba(255,255,255,.55); line-height: 1.6;
+}
+.iso-right {
+  padding: 20px 26px;
+  display: flex; align-items: center; gap: 0; flex-wrap: wrap;
+}
+.iso-metric { padding: 8px 28px; border-right: 1px solid var(--line); }
+.iso-metric:last-child { border-right: none; }
+.im-lbl {
+  font-family: var(--mono); font-size: 9px; color: var(--muted);
+  letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px;
+}
+.im-val {
+  font-size: 28px; font-weight: 700; letter-spacing: -1px;
+  line-height: 1; font-variant-numeric: tabular-nums;
+}
+.im-val.blue  { color: var(--blue); }
+.im-val.red   { color: var(--red); }
+.im-val.teal  { color: var(--teal); }
+.im-val.amber { color: var(--amber); }
+.im-val.green { color: var(--green); }
+.im-sub { font-size: 10px; color: var(--muted); margin-top: 3px; }
+
+/* ISO LEVELS STRIP */
+.iso-levels {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 10px; margin-bottom: 22px;
+}
+.iso-lv {
+  background: var(--white); border: 1px solid var(--line);
+  border-radius: 8px; padding: 14px 16px;
+  position: relative; overflow: hidden;
+  box-shadow: var(--sh1); transition: border-color .2s, box-shadow .2s;
+}
+.iso-lv:hover { border-color: var(--blue-bd); box-shadow: var(--sh2); }
+.iso-lv-stripe {
+  position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+}
+.iso-lv-num {
+  font-family: var(--mono); font-size: 9px; font-weight: 600;
+  padding: 2px 8px; border-radius: 3px; display: inline-block;
+  margin-bottom: 8px; letter-spacing: 1px;
+}
+.iso-lv-name { font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+.iso-lv-desc { font-size: 10px; color: var(--sub); line-height: 1.5; }
+.iso-lv-ex {
+  margin-top: 9px; padding-top: 8px; border-top: 1px solid var(--line2);
+  font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: .3px;
+}
+.iso-lv-ex strong { font-weight: 600; }
+
+/* ISO TREE */
+.iso-tree { display: flex; flex-direction: column; gap: 12px; }
+
+/* CLASS ROW */
+.cls-row {
+  border: 1px solid var(--line); border-radius: 10px;
+  overflow: hidden; background: var(--white); box-shadow: var(--sh1);
+  animation: fadeUp .3s ease both;
+}
+.cls-row:nth-child(1) { animation-delay: .04s; }
+.cls-row:nth-child(2) { animation-delay: .09s; }
+.cls-row:nth-child(3) { animation-delay: .14s; }
+.cls-row:nth-child(4) { animation-delay: .19s; }
+
+.cls-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 20px; height: 60px;
+  cursor: pointer; user-select: none;
+  transition: background .12s;
+}
+.cls-head:hover { background: var(--panel); }
+
+.ch-left { display: flex; align-items: center; gap: 12px; }
+.ch-tog {
+  width: 22px; height: 22px; border-radius: 4px; flex-shrink: 0;
+  border: 1.5px solid var(--line); background: var(--panel);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; color: var(--muted); transition: all .15s;
+  font-family: var(--mono);
+}
+.cls-row.open .ch-tog { border-color: var(--blue); background: var(--blue-bg); color: var(--blue); }
+.ch-class-id {
+  font-family: var(--mono); font-size: 9px; font-weight: 600;
+  padding: 2px 9px; border-radius: 4px; letter-spacing: 1px;
+  border: 1px solid var(--line); color: var(--sub); background: var(--panel);
+}
+.ch-icon { font-size: 18px; }
+.ch-info {}
+.ch-name { font-size: 15px; font-weight: 700; color: var(--ink); letter-spacing: -.2px; }
+.ch-norm {
+  font-family: var(--mono); font-size: 9px; color: var(--muted);
+  margin-top: 2px; letter-spacing: .3px;
+}
+.ch-stats { display: flex; align-items: center; gap: 6px; }
+.cs {
+  text-align: center; padding: 6px 12px;
+  border: 1px solid var(--line); border-radius: 5px;
+  background: var(--panel); min-width: 58px;
+}
+.cs-v { font-family: var(--mono); font-size: 14px; font-weight: 700; color: var(--ink); line-height: 1; }
+.cs-l { font-size: 8px; color: var(--muted); margin-top: 2px; letter-spacing: 1.5px; text-transform: uppercase; }
+.cs.b .cs-v { color: var(--blue); }
+.cs.r .cs-v { color: var(--red); }
+.cs.t .cs-v { color: var(--teal); }
+.cs.m .cs-v { color: var(--muted); }
+.cs-sep { width: 1px; height: 28px; background: var(--line); }
+
+/* CLASS STRIPE COLOR */
+.cls-row .cls-stripe {
+  height: 3px;
+}
+
+/* CLASS BODY */
+.cls-body { display: none; border-top: 1px solid var(--line); }
+.cls-row.open .cls-body { display: block; }
+
+/* CATEGORY ROWS */
+.cat-rows {}
+.cat-item { border-bottom: 1px solid var(--line2); }
+.cat-item:last-child { border-bottom: none; }
+
+.cat-head {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 20px 10px 44px;
+  cursor: pointer; user-select: none;
+  background: var(--panel); transition: background .12s;
+}
+.cat-head:hover { background: rgba(21,88,214,.03); }
+.cat-tog {
+  width: 16px; height: 16px; border-radius: 3px; flex-shrink: 0;
+  border: 1px solid var(--line); background: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 8px; color: var(--muted); font-family: var(--mono);
+  transition: all .12s;
+}
+.cat-item.open .cat-tog { border-color: var(--blue-bd); background: var(--blue-bg); color: var(--blue); }
+.cat-name { font-size: 12px; font-weight: 600; color: var(--ink2); flex: 1; }
+.cat-badge {
+  font-family: var(--mono); font-size: 8px; font-weight: 600;
+  padding: 2px 8px; border-radius: 3px; letter-spacing: .5px;
+  border: 1px solid transparent;
+}
+.cat-count {
+  font-family: var(--mono); font-size: 13px; font-weight: 700;
+  min-width: 40px; text-align: right;
+}
+
+/* TYPE ROWS */
+.type-rows { display: none; background: var(--white); }
+.cat-item.open .type-rows { display: block; }
+
+.type-row-item {
+  display: flex; align-items: center; gap: 0;
+  padding: 9px 20px 9px 66px;
+  border-top: 1px solid var(--line2);
+  transition: background .1s; cursor: default;
+}
+.type-row-item:hover { background: rgba(21,88,214,.025); }
+
+.tr-dot {
+  width: 4px; height: 4px; border-radius: 50%;
+  flex-shrink: 0; margin-right: 10px;
+}
+.tr-code {
+  font-family: var(--mono); font-size: 10px; color: var(--muted);
+  min-width: 168px; flex-shrink: 0; letter-spacing: .3px;
+}
+.tr-name { font-size: 11px; font-weight: 600; color: var(--ink2); flex: 1; letter-spacing: -.1px; }
+.tr-stats { display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
+.trs {
+  font-family: var(--mono); font-size: 9px; font-weight: 600;
+  padding: 2px 8px; border-radius: 3px; border: 1px solid transparent;
+}
+.trs-tot  { background: var(--blue-bg);  color: var(--blue);  border-color: var(--blue-bd); }
+.trs-aa   { background: var(--red-bg);   color: var(--red);   border-color: var(--red-bd); }
+.trs-aa0  { background: var(--panel);    color: var(--muted); border-color: var(--line); }
+.trs-mec  { background: var(--panel);    color: var(--sub);   border-color: var(--line); }
+.trs-elc  { background: var(--teal-bg);  color: var(--teal);  border-color: var(--teal-bd); }
+.trs-src  { background: var(--panel);    color: var(--muted); border-color: var(--line); font-size: 8px; }
+.trs-pend { background: var(--amber-bg); color: var(--amber); border-color: var(--amber-bd); }
+
+/* CONFORMITY PANEL */
+.conf-panel {
+  background: var(--white); border: 1px solid var(--line);
+  border-radius: 10px; overflow: hidden;
+  box-shadow: var(--sh1); margin-top: 22px;
+}
+.conf-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 22px;
+  background: var(--ink2); border-bottom: 1px solid var(--line);
+}
+.conf-head-title { font-size: 13px; font-weight: 700; color: #fff; }
+.conf-head-note {
+  font-family: var(--mono); font-size: 9px; color: rgba(255,255,255,.35);
+  background: rgba(255,255,255,.07); padding: 3px 10px;
+  border-radius: 3px; letter-spacing: 1px;
+}
+.conf-metrics {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 1px; background: var(--line);
+}
+.conf-m {
+  background: var(--white); padding: 16px 20px; position: relative; overflow: hidden;
+}
+.conf-m::after {
+  content: attr(data-pct);
+  position: absolute; bottom: -8px; right: 8px;
+  font-size: 56px; font-weight: 900; opacity: .03;
+  font-family: var(--font); pointer-events: none;
+}
+.cm-lbl {
+  font-family: var(--mono); font-size: 9px; color: var(--muted);
+  letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px;
+}
+.cm-val { font-size: 28px; font-weight: 700; letter-spacing: -1px; line-height: 1; margin-bottom: 4px; }
+.cm-sub { font-size: 10px; color: var(--muted); }
+.cm-bar { height: 3px; background: var(--line2); border-radius: 2px; overflow: hidden; margin-top: 10px; }
+.cm-fill { height: 100%; border-radius: 2px; transition: width 1.4s cubic-bezier(.16,1,.3,1); }
+.conf-m.ok   .cm-val { color: var(--green); } .conf-m.ok   .cm-fill { background: var(--green); }
+.conf-m.warn .cm-val { color: var(--amber); } .conf-m.warn .cm-fill { background: var(--amber2); }
+.conf-m.bad  .cm-val { color: var(--red); }   .conf-m.bad  .cm-fill { background: var(--red2); }
+.conf-m.info .cm-val { color: var(--blue); }  .conf-m.info .cm-fill { background: var(--blue2); }
+
+/* GAPS TABLE */
+.gaps-table-wrap {
+  background: var(--white); border: 1px solid var(--line);
+  border-radius: 10px; overflow: hidden;
+  box-shadow: var(--sh1); margin-top: 20px;
+}
+.gt-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 13px 20px; background: var(--panel);
+  border-bottom: 1px solid var(--line);
+}
+.gt-title { font-size: 13px; font-weight: 700; color: var(--ink); }
+.gt-note {
+  font-family: var(--mono); font-size: 9px; color: var(--muted);
+  padding: 3px 10px; border: 1px solid var(--line);
+  border-radius: 3px; letter-spacing: 1px;
+}
+.gt { width: 100%; border-collapse: collapse; }
+.gt thead tr { background: var(--panel); border-bottom: 1px solid var(--line); }
+.gt thead th {
+  padding: 8px 16px;
+  font-family: var(--mono); font-size: 8.5px; font-weight: 600;
+  color: var(--muted); text-transform: uppercase; letter-spacing: 1.8px; text-align: left;
+}
+.gt thead th:first-child { padding-left: 20px; }
+.gt tbody td { padding: 10px 16px; font-size: 11px; color: var(--sub); border-bottom: 1px solid var(--line2); }
+.gt tbody td:first-child { padding-left: 20px; }
+.gt tbody tr:hover td { background: rgba(21,88,214,.02); color: var(--ink); }
+.gt tbody tr:last-child td { border-bottom: none; }
+.st-ok   { @extend .pill; }
+.st-warn { }
+.st-bad  { }
+
+/* ══════════════════════════════════════
+   ANIMATIONS
+══════════════════════════════════════ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.unit-acc { animation: fadeUp .3s ease both; }
+.unit-acc:nth-child(2) { animation-delay: .06s; }
+.unit-acc:nth-child(3) { animation-delay: .12s; }
+.unit-acc:nth-child(4) { animation-delay: .18s; }
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════ */
+@media (max-width:1100px) {
+  .kpi-row { grid-template-columns: repeat(3,1fr); }
+  .iso-levels { grid-template-columns: repeat(2,1fr); }
+  .conf-metrics { grid-template-columns: repeat(2,1fr); }
+  .iso-info-panel { grid-template-columns: 1fr; }
+  .ch-stats, .uh-stats { display: none; }
+  .exp-cards { grid-template-columns: repeat(3,1fr); }
+}
+@media (max-width:680px) {
+  .inner { padding: 16px 16px 40px; }
+  .kpi-row { grid-template-columns: repeat(2,1fr); }
+  .iso-levels { grid-template-columns: 1fr; }
+  .topbar { padding: 0 16px; }
+  .tb-sub { display: none; }
+}
+
+/* ══════════════════════════════════════
+   CHARTS — PAGE 1
+══════════════════════════════════════ */
+.charts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 340px;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+.chart-panel {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: var(--sh1);
+}
+.cp-hdr {
+  padding: 14px 18px 10px;
+  border-bottom: 1px solid var(--line2);
+  background: var(--panel);
+}
+.cp-title {
+  font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 2px;
+}
+.cp-sub {
+  font-family: var(--mono); font-size: 9px; color: var(--muted);
+  letter-spacing: 1.5px; text-transform: uppercase;
+}
+.cp-body {
+  padding: 16px 18px;
+}
+.cp-legend {
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  padding: 0 18px 14px;
+}
+.cpl-item {
+  display: flex; align-items: center; gap: 6px;
+  font-family: var(--mono); font-size: 9px; font-weight: 600; color: var(--sub);
+  letter-spacing: .5px;
+}
+.cpl-dot {
+  width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0;
+}
+@media (max-width:1100px) {
+  .charts-grid { grid-template-columns: 1fr 1fr; }
+  .chart-panel:last-child { grid-column: 1 / -1; }
+}
+@media (max-width:680px) {
+  .charts-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<body>
+<div class="page-wrap">
+
+<!-- ════════════════════════════════════
+     TOP NAVIGATION BAR
+════════════════════════════════════ -->
+<nav class="topbar">
+  <div class="tb-brand">
+    <div class="tb-logo"><span>🖼</span><span>LOGO</span></div>
+    <div>
+      <div class="tb-name">Parc Équipements — Installation Phosphorique PA</div>
+      <div class="tb-sub">Gestion · Classification · Conformité ISO</div>
+    </div>
+  </div>
+  <div class="tb-tabs">
+    <button class="tb-tab active" onclick="switchPage(1)">
+      Classification Opérationnelle
+      <span class="tb-tab-num">P1</span>
+    </button>
+    <button class="tb-tab" onclick="switchPage(2)">
+      Arborescence ISO 14224
+      <span class="tb-tab-num">P2</span>
+    </button>
+  </div>
+  <div class="tb-right">
+    <div class="tb-chip tbc-ghost">MARS 2026</div>
+    <div class="tb-chip tbc-blue">2 905 ÉQ.</div>
+    <div class="tb-chip tbc-red">AA · 1 423</div>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════════════════════════
+     PAGE 1 — CLASSIFICATION OPÉRATIONNELLE U → Z → S
+════════════════════════════════════════════════════════ -->
+<div class="page active" id="page-1">
+<div class="inner">
+
+  <div class="page-hdr">
+    <div class="ph-left">
+      <div class="ph-eyebrow">Page 1 — Classification Opérationnelle</div>
+      <div class="ph-title">Unité / Zone / Section — Électrique &amp; Mécanique</div>
+      <div class="ph-desc">Répartition disciplinaire et criticité par section · 4 Unités · 4 Zones · 12 Sections · 2 905 équipements</div>
+    </div>
+    <div class="ph-right">
+      <div class="ph-badge phb-teal">2 198 Électrique</div>
+      <div class="ph-badge phb-blue">707 Mécanique</div>
+      <div class="ph-badge phb-red">1 423 AA</div>
+    </div>
+  </div>
+
+  <!-- KPIs DISCIPLINAIRES -->
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-accent" style="background:var(--blue2)"></div>
+      <div class="kpi-lbl">Parc Total</div>
+      <div class="kpi-val" style="color:var(--blue)">2 905</div>
+      <div class="kpi-sub">GMAO · ACAP · CAP · Ligne E</div>
+      <span class="kpi-tag" style="background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-bd)">TOTAL</span>
+    </div>
+    <div class="kpi">
+      <div class="kpi-accent" style="background:var(--teal2)"></div>
+      <div class="kpi-lbl">Électrique</div>
+      <div class="kpi-val" style="color:var(--teal)">2 198</div>
+      <div class="kpi-sub">75.7% du parc total PA</div>
+      <span class="kpi-tag" style="background:var(--teal-bg);color:var(--teal);border:1px solid var(--teal-bd)">ÉLEC</span>
+    </div>
+    <div class="kpi">
+      <div class="kpi-accent" style="background:var(--blue2)"></div>
+      <div class="kpi-lbl">Mécanique</div>
+      <div class="kpi-val">707</div>
+      <div class="kpi-sub">24.3% du parc total PA</div>
+      <span class="kpi-tag" style="background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-bd)">MÉCA</span>
+    </div>
+    <div class="kpi">
+      <div class="kpi-accent" style="background:var(--red2)"></div>
+      <div class="kpi-lbl">Criticité AA</div>
+      <div class="kpi-val" style="color:var(--red)">1 423</div>
+      <div class="kpi-sub">49.0% — Priorité maximale</div>
+      <span class="kpi-tag" style="background:var(--red-bg);color:var(--red);border:1px solid var(--red-bd)">AA</span>
+    </div>
+    <div class="kpi">
+      <div class="kpi-accent" style="background:var(--amber2)"></div>
+      <div class="kpi-lbl">Criticité B</div>
+      <div class="kpi-val" style="color:var(--amber)">346</div>
+      <div class="kpi-sub">11.9% du parc</div>
+      <span class="kpi-tag" style="background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-bd)">B</span>
+    </div>
+    <div class="kpi">
+      <div class="kpi-accent" style="background:var(--green)"></div>
+      <div class="kpi-lbl">Criticité A + C</div>
+      <div class="kpi-val" style="color:var(--green)">83</div>
+      <div class="kpi-sub">A: 48 · C: 35 équipements</div>
+      <span class="kpi-tag" style="background:var(--green-bg);color:var(--green);border:1px solid var(--green-bd)">A+C</span>
+    </div>
+  </div>
+
+  <!-- HISTOGRAMMES -->
+  <div class="sec-lbl">
+    <div class="sl-mark" style="background:var(--blue2)"></div>
+    <div class="sl-text">Analyses Graphiques — Discipline &amp; Criticité par Unité</div>
+    <div class="sl-line"></div>
+  </div>
+
+  <div class="charts-grid">
+
+    <div class="chart-panel">
+      <div class="cp-hdr">
+        <div class="cp-title">Électrique vs Mécanique par Unité</div>
+        <div class="cp-sub">Histogramme · 4 unités</div>
+      </div>
+      <div class="cp-body"><canvas id="chartDisc" height="200"></canvas></div>
+      <div class="cp-legend">
+        <div class="cpl-item"><div class="cpl-dot" style="background:#0f8a72"></div>Électrique</div>
+        <div class="cpl-item"><div class="cpl-dot" style="background:#2067f5"></div>Mécanique</div>
+      </div>
+    </div>
+
+    <div class="chart-panel">
+      <div class="cp-hdr">
+        <div class="cp-title">Criticité AA par Section — Unité 03</div>
+        <div class="cp-sub">AA vs Non-AA · 6 sections</div>
+      </div>
+      <div class="cp-body"><canvas id="chartAA" height="200"></canvas></div>
+      <div class="cp-legend">
+        <div class="cpl-item"><div class="cpl-dot" style="background:#dc2626"></div>AA</div>
+        <div class="cpl-item"><div class="cpl-dot" style="background:#dde2ea"></div>Non AA</div>
+      </div>
+    </div>
+
+    <div class="chart-panel" style="display:flex;flex-direction:column;">
+      <div class="cp-hdr">
+        <div class="cp-title">Répartition Criticité Globale</div>
+        <div class="cp-sub">AA · B · A · C — 2 905 éq.</div>
+      </div>
+      <div class="cp-body" style="flex:1;display:flex;align-items:center;justify-content:center;padding:8px 18px 0;">
+        <canvas id="chartDonut" style="max-height:170px;max-width:170px;"></canvas>
+      </div>
+      <div class="cp-legend" style="justify-content:center;padding:8px 18px 14px;flex-wrap:wrap;">
+        <div class="cpl-item"><div class="cpl-dot" style="background:#dc2626"></div>AA 1 423</div>
+        <div class="cpl-item"><div class="cpl-dot" style="background:#b45309"></div>B 346</div>
+        <div class="cpl-item"><div class="cpl-dot" style="background:#166534"></div>A 48</div>
+        <div class="cpl-item"><div class="cpl-dot" style="background:#8693a4"></div>C 35</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TABLEAU ARBORESCENCE -->
+  <div class="sec-lbl">
+    <div class="sl-mark" style="background:var(--blue2)"></div>
+    <div class="sl-text">Arborescence Détaillée — Unité / Zone / Section / Discipline</div>
+    <div class="sl-line"></div>
+    <div class="sl-count">Cliquer sur une ligne pour détails</div>
+  </div>
+
+  <!-- UNITÉ 03 -->
+  <div class="unit-acc unit-u03 open" id="u03">
+    <div class="unit-head" onclick="toggleUnit('u03')">
+      <div class="uh-left">
+        <div class="uh-tog" style="transform:rotate(90deg)">›</div>
+        <div class="uh-id">U03</div>
+        <div class="uh-name">Unité 03</div>
+        <div class="uh-source">GMAO · Zone IDJ/PA</div>
+      </div>
+      <div class="uh-stats">
+        <div class="us b"><div class="us-v">2 375</div><div class="us-l">Total</div></div>
+        <div class="us t"><div class="us-v">2 174</div><div class="us-l">Élec</div></div>
+        <div class="us"><div class="us-v">201</div><div class="us-l">Méca</div></div>
+        <div class="us r"><div class="us-v">1 322</div><div class="us-l">AA</div></div>
+      </div>
+    </div>
+    <div class="unit-body">
+      <div class="zone-strip">
+        <div class="zs-label">Zone L2</div>
+        <div class="zs-value">IDJ / PA</div>
+        <div class="zs-total">2 375 équipements · 6 sections · 91.5% Électrique · 8.5% Mécanique</div>
+      </div>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr>
+            <th>Section Propriétaire</th>
+            <th style="text-align:right">Total</th>
+            <th style="text-align:right">Électrique</th>
+            <th style="text-align:right">% Élec</th>
+            <th style="text-align:right">Mécanique</th>
+            <th style="text-align:right">% Méca</th>
+            <th style="text-align:right">Crit. AA</th>
+            <th style="min-width:140px">Taux AA</th>
+            <th>Statut</th>
+          </tr></thead>
+          <tbody>
+            <tr onclick="exp('e1')">
+              <td><span class="cell-code">S-ER-03-PA</span></td>
+              <td class="cell-num c-blue">1 485</td>
+              <td class="cell-num c-teal">1 443</td><td class="cell-num c-teal">97.2%</td>
+              <td class="cell-num">42</td><td class="cell-num c-muted">2.8%</td>
+              <td class="cell-num c-red">640</td>
+              <td><div class="pbar"><div class="pbar-track"><div class="pbar-fill med" data-w="43.1"></div></div><span class="pbar-pct">43.1%</span></div></td>
+              <td><span class="pill p-aa">AA PARTIEL</span></td>
+            </tr>
+            <tr class="exp-row" id="e1"><td colspan="9"><div class="exp-cards">
+              <div class="exp-card"><div class="ec-lbl">Total</div><div class="ec-val b">1 485</div></div>
+              <div class="exp-card"><div class="ec-lbl">Électrique</div><div class="ec-val t">1 443</div></div>
+              <div class="exp-card"><div class="ec-lbl">% Élec</div><div class="ec-val t">97.2%</div></div>
+              <div class="exp-card"><div class="ec-lbl">Mécanique</div><div class="ec-val">42</div></div>
+              <div class="exp-card"><div class="ec-lbl">% Méca</div><div class="ec-val">2.8%</div></div>
+              <div class="exp-card"><div class="ec-lbl">Criticité AA</div><div class="ec-val r">640</div></div>
+              <div class="exp-card"><div class="ec-lbl">% Parc U03</div><div class="ec-val b">62.5%</div></div>
+            </div></td></tr>
+
+            <tr onclick="exp('e2')">
+              <td><span class="cell-code">S-M-BME-04</span></td>
+              <td class="cell-num c-blue">692</td>
+              <td class="cell-num c-teal">685</td><td class="cell-num c-teal">99.0%</td>
+              <td class="cell-num">7</td><td class="cell-num c-muted">1.0%</td>
+              <td class="cell-num c-red">495</td>
+              <td><div class="pbar"><div class="pbar-track"><div class="pbar-fill high" data-w="71.5"></div></div><span class="pbar-pct">71.5%</span></div></td>
+              <td><span class="pill p-aa">AA ÉLEVÉ</span></td>
+            </tr>
+            <tr class="exp-row" id="e2"><td colspan="9"><div class="exp-cards">
+              <div class="exp-card"><div class="ec-lbl">Total</div><div class="ec-val b">692</div></div>
+              <div class="exp-card"><div class="ec-lbl">Électrique</div><div class="ec-val t">685</div></div>
+              <div class="exp-card"><div class="ec-lbl">% Élec</div><div class="ec-val t">99.0%</div></div>
+              <div class="exp-card"><div class="ec-lbl">Mécanique</div><div class="ec-val">7</div></div>
+              <div class="exp-card"><div class="ec-lbl">% Méca</div><div class="ec-val">1.0%</div></div>
+              <div class="exp-card"><div class="ec-lbl">Criticité AA</div><div class="ec-val r">495</div></div>
+              <div class="exp-card"><div class="ec-lbl">% Parc U03</div><div class="ec-val b">29.1%</div></div>
+            </div></td></tr>
+
+            <tr onclick="exp('e3')">
+              <td><span class="cell-code">S-M-U03-PA</span></td>
+              <td class="cell-num c-blue">136</td>
+              <td class="cell-num c-teal">10</td><td class="cell-num c-muted">7.4%</td>
+              <td class="cell-num">126</td><td class="cell-num">92.6%</td>
+              <td class="cell-num c-red">125</td>
+              <td><div class="pbar"><div class="pbar-track"><div class="pbar-fill high" data-w="91.9"></div></div><span class="pbar-pct">91.9%</span></div></td>
+              <td><span class="pill p-aa">AA CRITIQUE</span></td>
+            </tr>
+            <tr class="exp-row" id="e3"><td colspan="9"><div class="exp-cards">
+              <div class="exp-card"><div class="ec-lbl">Total</div><div class="ec-val b">136</div></div>
+              <div class="exp-card"><div class="ec-lbl">Électrique</div><div class="ec-val t">10</div></div>
+              <div class="exp-card"><div class="ec-lbl">% Élec</div><div class="ec-val t">7.4%</div></div>
+              <div class="exp-card"><div class="ec-lbl">Mécanique</div><div class="ec-val">126</div></div>
+              <div class="exp-card"><div class="ec-lbl">% Méca</div><div class="ec-val">92.6%</div></div>
+              <div class="exp-card"><div class="ec-lbl">Criticité AA</div><div class="ec-val r">125</div></div>
+              <div class="exp-card"><div class="ec-lbl">% Parc U03</div><div class="ec-val b">5.7%</div></div>
+            </div></td></tr>
+
+            <tr onclick="exp('e4')">
+              <td><span class="cell-code">S-ERU03-PA</span></td>
+              <td class="cell-num c-blue">35</td>
+              <td class="cell-num c-teal">35</td><td class="cell-num c-teal">100%</td>
+              <td class="cell-num c-muted">0</td><td class="cell-num c-muted">0%</td>
+              <td class="cell-num c-red">35</td>
+              <td><div class="pbar"><div class="pbar-track"><div class="pbar-fill high" data-w="100"></div></div><span class="pbar-pct">100%</span></div></td>
+              <td><span class="pill p-aa">100% AA</span></td>
+            </tr>
+            <tr class="exp-row" id="e4"><td colspan="9"><div class="exp-cards">
+              <div class="exp-card"><div class="ec-lbl">Total</div><div class="ec-val b">35</div></div>
+              <div class="exp-card"><div class="ec-lbl">Électrique</div><div class="ec-val t">35</div></div>
+              <div class="exp-card"><div class="ec-lbl">Mécanique</div><div class="ec-val c-muted">0</div></div>
+              <div class="exp-card"><div class="ec-lbl">Criticité AA</div><div class="ec-val r">35</div></div>
+              <div class="exp-card"><div class="ec-lbl">Taux AA</div><div class="ec-val r">100%</div></div>
+            </div></td></tr>
+
+            <tr onclick="exp('e5')">
+              <td><span class="cell-code">S-M-BMR-04</span></td>
+              <td class="cell-num c-blue">19</td>
+              <td class="cell-num c-muted">0</td><td class="cell-num c-muted">0%</td>
+              <td class="cell-num">19</td><td class="cell-num">100%</td>
+              <td class="cell-num c-red">19</td>
+              <td><div class="pbar"><div class="pbar-track"><div class="pbar-fill high" data-w="100"></div></div><span class="pbar-pct">100%</span></div></td>
+              <td><span class="pill p-aa">100% AA</span></td>
+            </tr>
+            <tr class="exp-row" id="e5"><td colspan="9"><div class="exp-cards">
+              <div class="exp-card"><div class="ec-lbl">Total</div><div class="ec-val b">19</div></div>
+              <div class="exp-card"><div class="ec-lbl">Électrique</div><div class="ec-val c-muted">0</div></div>
+              <div class="exp-card"><div class="ec-lbl">Mécanique</div><div class="ec-val">19</div></div>
+              <div class="exp-card"><div class="ec-lbl">Criticité AA</div><div class="ec-val r">19</div></div>
+              <div class="exp-card"><div class="ec-lbl">Taux AA</div><div class="ec-val r">100%</div></div>
+            </div></td></tr>
+
+            <tr onclick="exp('e6')">
+              <td><span class="cell-code">ST_INS</span></td>
+              <td class="cell-num c-blue">1</td>
+              <td class="cell-num c-teal">1</td><td class="cell-num c-teal">100%</td>
+              <td class="cell-num c-muted">0</td><td class="cell-num c-muted">0%</td>
+              <td class="cell-num c-red">1</td>
+              <td><div class="pbar"><div class="pbar-track"><div class="pbar-fill high" data-w="100"></div></div><span class="pbar-pct">100%</span></div></td>
+              <td><span class="pill p-aa">100% AA</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- UNITÉ 04 ACAP -->
+  <div class="unit-acc unit-acap open" id="u04a">
+    <div class="unit-head" onclick="toggleUnit('u04a')">
+      <div class="uh-left">
+        <div class="uh-tog" style="transform:rotate(90deg)">›</div>
+        <div class="uh-id">U04</div>
+        <div class="uh-name">Unité 04 — ACAP</div>
+        <div class="uh-source">ACAP · Zone ACAP</div>
+      </div>
+      <div class="uh-stats">
+        <div class="us b"><div class="us-v">449</div><div class="us-l">Total</div></div>
+        <div class="us t"><div class="us-v">21</div><div class="us-l">Élec</div></div>
+        <div class="us"><div class="us-v">428</div><div class="us-l">Méca</div></div>
+        <div class="us r"><div class="us-v">91</div><div class="us-l">AA</div></div>
+      </div>
+    </div>
+    <div class="unit-body">
+      <div class="zone-strip" style="background:#f0faf7;border-color:rgba(13,110,90,.15)">
+        <div class="zs-label" style="color:var(--teal);background:var(--teal-bg);border-color:var(--teal-bd)">Zone L2</div>
+        <div class="zs-value">ACAP</div>
+        <div class="zs-total">449 éq. · 4.7% Électrique · 95.3% Mécanique · Section propriétaire non définie</div>
+      </div>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr>
+            <th>Section</th><th style="text-align:right">Total</th>
+            <th style="text-align:right">Électrique</th><th style="text-align:right">% Élec</th>
+            <th style="text-align:right">Mécanique</th><th style="text-align:right">% Méca</th>
+            <th style="text-align:right">Crit. AA</th><th>Taux AA</th><th>Statut</th>
+          </tr></thead>
+          <tbody>
+            <tr onclick="exp('a1')">
+              <td><span class="cell-code" style="color:var(--muted)">N/A — À définir (G-05)</span></td>
+              <td class="cell-num c-blue">449</td>
+              <td class="cell-num c-teal">21</td><td class="cell-num c-muted">4.7%</td>
+              <td class="cell-num">428</td><td class="cell-num">95.3%</td>
+              <td class="cell-num c-red">91</td>
+              <td><div class="pbar"><div class="pbar-track"><div class="pbar-fill" data-w="20.3"></div></div><span class="pbar-pct">20.3%</span></div></td>
+              <td><span class="pill p-warn">G-05 À DÉFINIR</span></td>
+            </tr>
+            <tr class="exp-row" id="a1"><td colspan="9"><div class="exp-cards">
+              <div class="exp-card"><div class="ec-lbl">Total</div><div class="ec-val b">449</div></div>
+              <div class="exp-card"><div class="ec-lbl">Électrique</div><div class="ec-val t">21</div></div>
+              <div class="exp-card"><div class="ec-lbl">% Élec</div><div class="ec-val t">4.7%</div></div>
+              <div class="exp-card"><div class="ec-lbl">Mécanique</div><div class="ec-val">428</div></div>
+              <div class="exp-card"><div class="ec-lbl">% Méca</div><div class="ec-val">95.3%</div></div>
+              <div class="exp-card"><div class="ec-lbl">Criticité AA</div><div class="ec-val r">91</div></div>
+              <div class="exp-card"><div class="ec-lbl">Écarts</div><div class="ec-val a" style="font-size:11px">G-01 · G-05</div></div>
+            </div></td></tr>
+          </tbody>
+        </table>
+        <div class="alert-strip"><span class="alert-icon">⚠</span> Section non définie · Code Groupe absent — Écarts ISO G-01 et G-05</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIGNE E -->
+  <div class="unit-acc unit-le open" id="ule">
+    <div class="unit-head" onclick="toggleUnit('ule')">
+      <div class="uh-left">
+        <div class="uh-tog" style="transform:rotate(90deg)">›</div>
+        <div class="uh-id">LE</div>
+        <div class="uh-name">Unité 03 — Ligne E</div>
+        <div class="uh-source">LIGNE E · Zone Ligne E</div>
+      </div>
+      <div class="uh-stats">
+        <div class="us b"><div class="us-v">53</div><div class="us-l">Total</div></div>
+        <div class="us t"><div class="us-v">3</div><div class="us-l">Élec</div></div>
+        <div class="us"><div class="us-v">50</div><div class="us-l">Méca</div></div>
+        <div class="us r"><div class="us-v">8</div><div class="us-l">AA</div></div>
+      </div>
+    </div>
+    <div class="unit-body">
+      <div class="zone-strip" style="background:#fffbf0;border-color:rgba(146,64,14,.15)">
+        <div class="zs-label" style="color:var(--amber);background:var(--amber-bg);border-color:var(--amber-bd)">Zone L2</div>
+        <div class="zs-value">Ligne E</div>
+        <div class="zs-total">53 éq. · 5.7% Électrique · 94.3% Mécanique · 5 sections process</div>
+      </div>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr>
+            <th>Section Process</th><th style="text-align:right">Total</th>
+            <th style="text-align:right">Électrique</th><th style="text-align:right">% Élec</th>
+            <th style="text-align:right">Mécanique</th><th style="text-align:right">% Méca</th>
+            <th style="text-align:right">Crit. AA</th><th>Taux AA</th><th>Statut</th>
+          </tr></thead>
+          <tbody>
+            <tr onclick="exp('l1')">
+              <td><span class="cell-code">03E — Attaque Filtration</span></td>
+              <td class="cell-num c-blue">39</td>
+              <td class="cell-num c-teal">2</td><td class="cell-num c-muted">5.1%</td>
+              <td class="cell-num">37</td><td class="cell-num">94.9%</td>
+              <td class="cell-num c-red">8</td>
+              <td><div class="pbar"><div class="pbar-track"><div class="pbar-fill" data-w="20.5"></div></div><span class="pbar-pct">20.5%</span></div></td>
+              <td><span class="pill p-aa">AA</span></td>
+            </tr>
+            <tr class="exp-row" id="l1"><td colspan="9"><div class="exp-cards">
+              <div class="exp-card"><div class="ec-lbl">Total</div><div class="ec-val b">39</div></div>
+              <div class="exp-card"><div class="ec-lbl">Électrique</div><div class="ec-val t">2</div></div>
+              <div class="exp-card"><div class="ec-lbl">Mécanique</div><div class="ec-val">37</div></div>
+              <div class="exp-card"><div class="ec-lbl">Criticité AA</div><div class="ec-val r">8</div></div>
+              <div class="exp-card"><div class="ec-lbl">% Ligne E</div><div class="ec-val b">73.6%</div></div>
+            </div></td></tr>
+            <tr onclick="exp('l2')">
+              <td><span class="cell-code">02E — Réception Pulpe</span></td>
+              <td class="cell-num c-blue">10</td>
+              <td class="cell-num c-teal">1</td><td class="cell-num c-muted">10%</td>
+              <td class="cell-num">9</td><td class="cell-num">90%</td>
+              <td class="cell-num c-green">0</td>
+              <td><div class="pbar"><div class="pbar-track"><div class="pbar-fill" data-w="0"></div></div><span class="pbar-pct">0%</span></div></td>
+              <td><span class="pill p-ok">NON AA</span></td>
+            </tr>
+            <tr onclick="exp('l3')">
+              <td><span class="cell-code">03E — Attaque Digestion</span></td>
+              <td class="cell-num c-blue">2</td>
+              <td class="cell-num c-muted">0</td><td class="cell-num c-muted">0%</td>
+              <td class="cell-num">2</td><td class="cell-num">100%</td>
+              <td class="cell-num c-green">0</td>
+              <td><div class="pbar"><div class="pbar-track"><div class="pbar-fill" data-w="0"></div></div><span class="pbar-pct">0%</span></div></td>
+              <td><span class="pill p-ok">NON AA</span></td>
+            </tr>
+            <tr onclick="exp('l4')">
+              <td><span class="cell-code" style="color:var(--muted)">3E / Divers — À vérifier</span></td>
+              <td class="cell-num c-blue">2</td>
+              <td class="cell-num c-muted">0</td><td class="cell-num c-muted">0%</td>
+              <td class="cell-num">2</td><td class="cell-num">100%</td>
+              <td class="cell-num c-green">0</td>
+              <td><div class="pbar"><div class="pbar-track"><div class="pbar-fill" data-w="0"></div></div><span class="pbar-pct">0%</span></div></td>
+              <td><span class="pill p-warn">VÉRIFIER</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="alert-strip"><span class="alert-icon">⚠</span> Code Groupe absent sur toute la source Ligne E — Écart ISO G-03</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CAP -->
+  <div class="unit-acc unit-cap open" id="u04c">
+    <div class="unit-head" onclick="toggleUnit('u04c')">
+      <div class="uh-left">
+        <div class="uh-tog" style="transform:rotate(90deg)">›</div>
+        <div class="uh-id">CAP</div>
+        <div class="uh-name">Unité 04 — CAP</div>
+        <div class="uh-source">CAP · Zone U04</div>
+      </div>
+      <div class="uh-stats">
+        <div class="us b"><div class="us-v">28</div><div class="us-l">Total</div></div>
+        <div class="us t"><div class="us-v">0</div><div class="us-l">Élec</div></div>
+        <div class="us"><div class="us-v">28</div><div class="us-l">Méca</div></div>
+        <div class="us r"><div class="us-v">2</div><div class="us-l">AA</div></div>
+      </div>
+    </div>
+    <div class="unit-body">
+      <div class="zone-strip" style="background:#fffbf0;border-color:rgba(146,64,14,.15)">
+        <div class="zs-label" style="color:var(--amber);background:var(--amber-bg);border-color:var(--amber-bd)">Zone L2</div>
+        <div class="zs-value">U04</div>
+        <div class="zs-total">28 éq. · 100% Mécanique · Classification ISO partielle (6/28) · Écart G-04</div>
+      </div>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr>
+            <th>Section</th><th style="text-align:right">Total</th>
+            <th style="text-align:right">Électrique</th><th style="text-align:right">% Élec</th>
+            <th style="text-align:right">Mécanique</th><th style="text-align:right">% Méca</th>
+            <th style="text-align:right">Crit. AA</th><th>Taux AA</th><th>Statut</th>
+          </tr></thead>
+          <tbody>
+            <tr onclick="exp('c1')">
+              <td><span class="cell-code" style="color:var(--muted)">N/A — À définir (G-04, G-05)</span></td>
+              <td class="cell-num c-blue">28</td>
+              <td class="cell-num c-muted">0</td><td class="cell-num c-muted">0%</td>
+              <td class="cell-num">28</td><td class="cell-num">100%</td>
+              <td class="cell-num c-red">2</td>
+              <td><div class="pbar"><div class="pbar-track"><div class="pbar-fill" data-w="7.1"></div></div><span class="pbar-pct">7.1%</span></div></td>
+              <td><span class="pill p-warn">PARTIEL G-04</span></td>
+            </tr>
+            <tr class="exp-row" id="c1"><td colspan="9"><div class="exp-cards">
+              <div class="exp-card"><div class="ec-lbl">Total</div><div class="ec-val b">28</div></div>
+              <div class="exp-card"><div class="ec-lbl">Électrique</div><div class="ec-val c-muted">0</div></div>
+              <div class="exp-card"><div class="ec-lbl">Mécanique</div><div class="ec-val">28</div></div>
+              <div class="exp-card"><div class="ec-lbl">Criticité AA</div><div class="ec-val r">2</div></div>
+              <div class="exp-card"><div class="ec-lbl">ISO classés</div><div class="ec-val a" style="font-size:12px">6 / 28</div></div>
+              <div class="exp-card"><div class="ec-lbl">Écarts</div><div class="ec-val a" style="font-size:12px">G-04 · G-05</div></div>
+            </div></td></tr>
+          </tbody>
+        </table>
+        <div class="alert-strip"><span class="alert-icon">⚠</span> Classification ISO partielle (6/28) · Section non définie — Écarts G-04 et G-05</div>
+      </div>
+    </div>
+  </div>
+
+</div></div><!-- /inner /page-1 -->
+
+<div class="page" id="page-2">
+<div class="inner">
+
+  <div class="page-hdr" style="border-left-color:transparent">
+    <div style="position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,#0f2352,#1558d6)"></div>
+    <div class="ph-left">
+      <div class="ph-eyebrow" style="color:var(--blue)">Page 2 — Référentiel Normatif International</div>
+      <div class="ph-title">Arborescence Technique ISO 14224</div>
+      <div class="ph-desc">Collection & Exchange of Reliability and Maintenance Data for Equipment · Taxonomy L1→L4 · Petroleum & Natural Gas Industries</div>
+    </div>
+    <div class="ph-right">
+      <div class="ph-badge phb-blue">4 Classes L2</div>
+      <div class="ph-badge phb-teal">19 Catégories L3</div>
+      <div class="ph-badge phb-red">34 Types L4</div>
+    </div>
+  </div>
+
+  <!-- ISO INFO PANEL -->
+  <div class="iso-info-panel">
+    <div class="iso-left">
+      <div>
+        <div class="iso-std-code">ISO 14224</div>
+        <div class="iso-std-sub">Petroleum · Natural Gas · Industries<br>Reliability & Maintenance Data</div>
+      </div>
+      <div class="iso-scope">
+        Cadre standardisé pour la collecte et l'échange de données de fiabilité et maintenance. Définit une taxonomie à 9 niveaux pour la classification universelle des équipements industriels.
+      </div>
+    </div>
+    <div class="iso-right">
+      <div class="iso-metric"><div class="im-lbl">Parc Total</div><div class="im-val blue">2 905</div><div class="im-sub">Tous équipements PA</div></div>
+      <div class="iso-metric"><div class="im-lbl">Classifiés ISO</div><div class="im-val green">2 379</div><div class="im-sub">81.9% du parc</div></div>
+      <div class="iso-metric"><div class="im-lbl">À Qualifier</div><div class="im-val amber">526</div><div class="im-sub">ACAP · Ligne E · CAP</div></div>
+      <div class="iso-metric"><div class="im-lbl">Classes ISO</div><div class="im-val">4</div><div class="im-sub">L2 — Rotating · Elec · I&C · Static</div></div>
+      <div class="iso-metric"><div class="im-lbl">Criticité AA</div><div class="im-val red">1 423</div><div class="im-sub">49.0% — Priorité max</div></div>
+    </div>
+  </div>
+
+  <!-- ISO LEVELS -->
+  <div class="sec-lbl">
+    <div class="sl-mark" style="background:var(--blue2)"></div>
+    <div class="sl-text">Niveaux Taxonomiques ISO 14224 — Application PA</div>
+    <div class="sl-line"></div>
+  </div>
+  <div class="iso-levels">
+    <div class="iso-lv">
+      <div class="iso-lv-stripe" style="background:var(--blue2)"></div>
+      <div class="iso-lv-num" style="background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-bd)">NIVEAU L1</div>
+      <div class="iso-lv-name">Industrie / Secteur</div>
+      <div class="iso-lv-desc">Secteur industriel de référence tel que défini par la norme ISO 14224</div>
+      <div class="iso-lv-ex">Application : <strong>Industrie des Phosphates</strong></div>
+    </div>
+    <div class="iso-lv">
+      <div class="iso-lv-stripe" style="background:var(--teal2)"></div>
+      <div class="iso-lv-num" style="background:var(--teal-bg);color:var(--teal);border:1px solid var(--teal-bd)">NIVEAU L2</div>
+      <div class="iso-lv-name">Classe d'Équipement</div>
+      <div class="iso-lv-desc">4 grandes familles selon discipline et fonction principale</div>
+      <div class="iso-lv-ex">Ex. : <strong>Tournants · Électriques · I&amp;C · Statiques</strong></div>
+    </div>
+    <div class="iso-lv">
+      <div class="iso-lv-stripe" style="background:var(--amber2)"></div>
+      <div class="iso-lv-num" style="background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-bd)">NIVEAU L3</div>
+      <div class="iso-lv-name">Catégorie</div>
+      <div class="iso-lv-desc">Sous-groupe fonctionnel au sein de chaque classe</div>
+      <div class="iso-lv-ex">Ex. : <strong>Pompes · Moteurs · Tableaux · Régulateurs</strong></div>
+    </div>
+    <div class="iso-lv">
+      <div class="iso-lv-stripe" style="background:var(--violet)"></div>
+      <div class="iso-lv-num" style="background:var(--violet-bg);color:var(--violet);border:1px solid var(--violet-bd)">NIVEAU L4</div>
+      <div class="iso-lv-name">Type d'Équipement</div>
+      <div class="iso-lv-desc">Classification précise basée sur le code GMAO</div>
+      <div class="iso-lv-ex">Ex. : <strong>GPOMP.JCENT000 · GMTEL.JASYN000</strong></div>
+    </div>
+  </div>
+
+  <!-- ISO TREE -->
+  <div class="sec-lbl">
+    <div class="sl-mark" style="background:var(--blue2)"></div>
+    <div class="sl-text">Arborescence Complète ISO 14224 — Classe / Catégorie / Type</div>
+    <div class="sl-line"></div>
+    <div class="sl-count">4 classes · 19 catégories · 34 types</div>
+  </div>
+
+  <div class="iso-tree">
+
+    <!-- ── CLASSE A : TOURNANTS ── -->
+    <div class="cls-row open">
+      <div class="cls-stripe" style="background:var(--blue2)"></div>
+      <div class="cls-head" onclick="toggleCls(this)">
+        <div class="ch-left">
+          <div class="ch-tog">−</div>
+          <div class="ch-class-id">CLASSE A</div>
+          <div class="ch-icon">⚙</div>
+          <div class="ch-info">
+            <div class="ch-name">Équipements Tournants</div>
+            <div class="ch-norm">ISO 14224 · L2 · Rotating Equipment · Discipline : Mécanique</div>
+          </div>
+        </div>
+        <div class="ch-stats">
+          <div class="cs b"><div class="cs-v">164</div><div class="cs-l">Total</div></div>
+          <div class="cs-sep"></div>
+          <div class="cs r"><div class="cs-v">117</div><div class="cs-l">AA</div></div>
+          <div class="cs-sep"></div>
+          <div class="cs m"><div class="cs-v">164</div><div class="cs-l">Méca</div></div>
+        </div>
+      </div>
+      <div class="cls-body">
+        <div class="cat-rows">
+
+          <!-- Pompes -->
+          <div class="cat-item open">
+            <div class="cat-head" onclick="toggleCat(this)">
+              <div class="cat-tog">−</div>
+              <div class="cat-name">Pompes</div>
+              <span class="cat-badge" style="background:var(--blue-bg);color:var(--blue);border-color:var(--blue-bd)">L3 · 2 types</span>
+              <span class="cat-badge" style="background:var(--red-bg);color:var(--red);border-color:var(--red-bd);margin-left:4px">AA 24</span>
+              <div class="cat-count" style="color:var(--blue)">28</div>
+            </div>
+            <div class="type-rows">
+              <div class="type-row-item"><div class="tr-dot" style="background:var(--blue2)"></div><div class="tr-code">GPOMP.JCENT000</div><div class="tr-name">Pompe Centrifuge</div><div class="tr-stats"><span class="trs trs-tot">14</span><span class="trs trs-aa">AA 10</span><span class="trs trs-mec">M 14</span><span class="trs trs-src">GMAO</span></div></div>
+              <div class="type-row-item"><div class="tr-dot" style="background:var(--blue2)"></div><div class="tr-code">GPOMP.JVOLU000</div><div class="tr-name">Pompe Volumétrique</div><div class="tr-stats"><span class="trs trs-tot">14</span><span class="trs trs-aa">AA 14</span><span class="trs trs-mec">M 14</span><span class="trs trs-src">GMAO</span></div></div>
+            </div>
+          </div>
+
+          <!-- Agitateurs -->
+          <div class="cat-item">
+            <div class="cat-head" onclick="toggleCat(this)">
+              <div class="cat-tog">+</div>
+              <div class="cat-name">Agitateurs</div>
+              <span class="cat-badge" style="background:var(--blue-bg);color:var(--blue);border-color:var(--blue-bd)">L3 · 2 types</span>
+              <span class="cat-badge" style="background:var(--red-bg);color:var(--red);border-color:var(--red-bd);margin-left:4px">AA 32</span>
+              <div class="cat-count" style="color:var(--blue)">35</div>
+            </div>
+            <div class="type-rows">
+              <div class="type-row-item"><div class="tr-dot" style="background:var(--blue2)"></div><div class="tr-code">GAGIT.J0000000</div><div class="tr-name">Agitateur Standard</div><div class="tr-stats"><span class="trs trs-tot">29</span><span class="trs trs-aa">AA 29</span><span class="trs trs-mec">M 29</span><span class="trs trs-src">GMAO</span></div></div>
+              <div class="type-row-item"><div class="tr-dot" style="background:var(--blue2)"></div><div class="tr-code">GAGIT.JARBTOUR</div><div class="tr-name">Agitateur à Arbre Tournant</div><div class="tr-stats"><span class="trs trs-tot">6</span><span class="trs trs-aa">AA 3</span><span class="trs trs-mec">M 6</span><span class="trs trs-src">GMAO</span></div></div>
+            </div>
+          </div>
+
+          <!-- Ventilateurs -->
+          <div class="cat-item">
+            <div class="cat-head" onclick="toggleCat(this)"><div class="cat-tog">+</div><div class="cat-name">Ventilateurs</div><span class="cat-badge" style="background:var(--blue-bg);color:var(--blue);border-color:var(--blue-bd)">L3 · 1 type</span><span class="cat-badge" style="background:var(--red-bg);color:var(--red);border-color:var(--red-bd);margin-left:4px">AA 19</span><div class="cat-count" style="color:var(--blue)">19</div></div>
+            <div class="type-rows"><div class="type-row-item"><div class="tr-dot" style="background:var(--blue2)"></div><div class="tr-code">GVENT.J0000000</div><div class="tr-name">Moto-ventilateur</div><div class="tr-stats"><span class="trs trs-tot">19</span><span class="trs trs-aa">AA 19</span><span class="trs trs-mec">M 19</span><span class="trs trs-src">GMAO</span></div></div></div>
+          </div>
+
+          <!-- Moteurs tournants -->
+          <div class="cat-item">
+            <div class="cat-head" onclick="toggleCat(this)"><div class="cat-tog">+</div><div class="cat-name">Moteurs-Pompes</div><span class="cat-badge" style="background:var(--blue-bg);color:var(--blue);border-color:var(--blue-bd)">L3 · 1 type</span><span class="cat-badge" style="background:var(--red-bg);color:var(--red);border-color:var(--red-bd);margin-left:4px">AA 15</span><div class="cat-count" style="color:var(--blue)">15</div></div>
+            <div class="type-rows"><div class="type-row-item"><div class="tr-dot" style="background:var(--blue2)"></div><div class="tr-code">GMOPO.J0000000</div><div class="tr-name">Moteur-Pompe</div><div class="tr-stats"><span class="trs trs-tot">15</span><span class="trs trs-aa">AA 15</span><span class="trs trs-mec">M 15</span><span class="trs trs-src">GMAO</span></div></div></div>
+          </div>
+
+          <!-- Réducteurs -->
+          <div class="cat-item">
+            <div class="cat-head" onclick="toggleCat(this)"><div class="cat-tog">+</div><div class="cat-name">Réducteurs de Vitesse</div><span class="cat-badge" style="background:var(--blue-bg);color:var(--blue);border-color:var(--blue-bd)">L3 · 1 type</span><span class="cat-badge" style="background:var(--red-bg);color:var(--red);border-color:var(--red-bd);margin-left:4px">AA 27</span><div class="cat-count" style="color:var(--blue)">27</div></div>
+            <div class="type-rows"><div class="type-row-item"><div class="tr-dot" style="background:var(--blue2)"></div><div class="tr-code">GREDR.J0000000</div><div class="tr-name">Réducteur de Vitesse</div><div class="tr-stats"><span class="trs trs-tot">27</span><span class="trs trs-aa">AA 27</span><span class="trs trs-mec">M 27</span><span class="trs trs-src">GMAO</span></div></div></div>
+          </div>
+
+          <!-- HVAC -->
+          <div class="cat-item">
+            <div class="cat-head" onclick="toggleCat(this)"><div class="cat-tog">+</div><div class="cat-name">Climatisation / HVAC</div><span class="cat-badge" style="background:var(--blue-bg);color:var(--blue);border-color:var(--blue-bd)">L3 · 1 type</span><span class="cat-badge" style="background:var(--panel);color:var(--muted);border-color:var(--line);margin-left:4px">AA 0</span><div class="cat-count" style="color:var(--blue)">40</div></div>
+            <div class="type-rows"><div class="type-row-item"><div class="tr-dot" style="background:var(--blue2)"></div><div class="tr-code">GCLIM.JCLIM000</div><div class="tr-name">Unité de Climatisation</div><div class="tr-stats"><span class="trs trs-tot">40</span><span class="trs trs-aa0">AA 0</span><span class="trs trs-mec">M 40</span><span class="trs trs-src">GMAO</span></div></div></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CLASSE B : ÉLECTRIQUES ── -->
+    <div class="cls-row">
+      <div class="cls-stripe" style="background:var(--teal2)"></div>
+      <div class="cls-head" onclick="toggleCls(this)">
+        <div class="ch-left">
+          <div class="ch-tog">+</div>
+          <div class="ch-class-id" style="color:var(--teal);border-color:var(--teal-bd);background:var(--teal-bg)">CLASSE B</div>
+          <div class="ch-icon">⚡</div>
+          <div class="ch-info">
+            <div class="ch-name">Équipements Électriques</div>
+            <div class="ch-norm">ISO 14224 · L2 · Electrical Equipment · Discipline : Électrique</div>
+          </div>
+        </div>
+        <div class="ch-stats">
+          <div class="cs t"><div class="cs-v">834</div><div class="cs-l">Total</div></div>
+          <div class="cs-sep"></div>
+          <div class="cs r"><div class="cs-v">640</div><div class="cs-l">AA</div></div>
+          <div class="cs-sep"></div>
+          <div class="cs t"><div class="cs-v">834</div><div class="cs-l">Élec</div></div>
+        </div>
+      </div>
+      <div class="cls-body">
+        <div class="cat-rows">
+          <div class="cat-item"><div class="cat-head" onclick="toggleCat(this)"><div class="cat-tog">+</div><div class="cat-name">Moteurs Électriques</div><span class="cat-badge" style="background:var(--teal-bg);color:var(--teal);border-color:var(--teal-bd)">L3 · 2 types</span><span class="cat-badge" style="background:var(--red-bg);color:var(--red);border-color:var(--red-bd);margin-left:4px">AA 197</span><div class="cat-count" style="color:var(--teal)">202</div></div>
+          <div class="type-rows">
+            <div class="type-row-item"><div class="tr-dot" style="background:var(--teal2)"></div><div class="tr-code">GMTEL.JASYN000</div><div class="tr-name">Moteur Asynchrone</div><div class="tr-stats"><span class="trs trs-tot">198</span><span class="trs trs-aa">AA 197</span><span class="trs trs-elc">E 198</span><span class="trs trs-src">GMAO</span></div></div>
+            <div class="type-row-item"><div class="tr-dot" style="background:var(--teal2)"></div><div class="tr-code">GMTEL.J0000000</div><div class="tr-name">Moteur Électrique Standard</div><div class="tr-stats"><span class="trs trs-tot">4</span><span class="trs trs-aa0">AA 0</span><span class="trs trs-elc">E 4</span><span class="trs trs-src">GMAO</span></div></div>
+          </div></div>
+          <div class="cat-item"><div class="cat-head" onclick="toggleCat(this)"><div class="cat-tog">+</div><div class="cat-name">Armoires d'Alimentation</div><span class="cat-badge" style="background:var(--teal-bg);color:var(--teal);border-color:var(--teal-bd)">L3 · 1 type</span><span class="cat-badge" style="background:var(--red-bg);color:var(--red);border-color:var(--red-bd);margin-left:4px">AA 146</span><div class="cat-count" style="color:var(--teal)">205</div></div>
+          <div class="type-rows"><div class="type-row-item"><div class="tr-dot" style="background:var(--teal2)"></div><div class="tr-code">GAREL.J0000000</div><div class="tr-name">Armoire d'Alimentation</div><div class="tr-stats"><span class="trs trs-tot">205</span><span class="trs trs-aa">AA 146</span><span class="trs trs-elc">E 205</span><span class="trs trs-src">GMAO</span></div></div></div></div>
+          <div class="cat-item"><div class="cat-head" onclick="toggleCat(this)"><div class="cat-tog">+</div><div class="cat-name">Tableaux BT</div><span class="cat-badge" style="background:var(--teal-bg);color:var(--teal);border-color:var(--teal-bd)">L3 · 1 type</span><span class="cat-badge" style="background:var(--red-bg);color:var(--red);border-color:var(--red-bd);margin-left:4px">AA 49</span><div class="cat-count" style="color:var(--teal)">105</div></div>
+          <div class="type-rows"><div class="type-row-item"><div class="tr-dot" style="background:var(--teal2)"></div><div class="tr-code">GTBEL.JBT00000</div><div class="tr-name">Tableau Basse Tension</div><div class="tr-stats"><span class="trs trs-tot">105</span><span class="trs trs-aa">AA 49</span><span class="trs trs-elc">E 105</span><span class="trs trs-src">GMAO</span></div></div></div></div>
+          <div class="cat-item"><div class="cat-head" onclick="toggleCat(this)"><div class="cat-tog">+</div><div class="cat-name">Départs BT / MT</div><span class="cat-badge" style="background:var(--teal-bg);color:var(--teal);border-color:var(--teal-bd)">L3 · 2 types</span><span class="cat-badge" style="background:var(--red-bg);color:var(--red);border-color:var(--red-bd);margin-left:4px">AA 139</span><div class="cat-count" style="color:var(--teal)">139</div></div>
+          <div class="type-rows">
+            <div class="type-row-item"><div class="tr-dot" style="background:var(--teal2)"></div><div class="tr-code">GDPEL.JBT00000</div><div class="tr-name">Départ Basse Tension</div><div class="tr-stats"><span class="trs trs-tot">120</span><span class="trs trs-aa">AA 120</span><span class="trs trs-elc">E 120</span><span class="trs trs-src">GMAO</span></div></div>
+            <div class="type-row-item"><div class="tr-dot" style="background:var(--teal2)"></div><div class="tr-code">GDPEL.JMT00000</div><div class="tr-name">Départ Moyenne Tension</div><div class="tr-stats"><span class="trs trs-tot">19</span><span class="trs trs-aa">AA 19</span><span class="trs trs-elc">E 19</span><span class="trs trs-src">GMAO</span></div></div>
+          </div></div>
+          <div class="cat-item"><div class="cat-head" onclick="toggleCat(this)"><div class="cat-tog">+</div><div class="cat-name">Appareillage de Protection</div><span class="cat-badge" style="background:var(--teal-bg);color:var(--teal);border-color:var(--teal-bd)">L3 · 3 types</span><span class="cat-badge" style="background:var(--red-bg);color:var(--red);border-color:var(--red-bd);margin-left:4px">AA 2</span><div class="cat-count" style="color:var(--teal)">76</div></div>
+          <div class="type-rows">
+            <div class="type-row-item"><div class="tr-dot" style="background:var(--teal2)"></div><div class="tr-code">GDIST.J0000000</div><div class="tr-name">Disjoncteur Standard</div><div class="tr-stats"><span class="trs trs-tot">41</span><span class="trs trs-aa0">AA 0</span><span class="trs trs-elc">E 41</span><span class="trs trs-src">GMAO</span></div></div>
+            <div class="type-row-item"><div class="tr-dot" style="background:var(--teal2)"></div><div class="tr-code">GDISJ.JMT00000</div><div class="tr-name">Disjoncteur Moyenne Tension</div><div class="tr-stats"><span class="trs trs-tot">20</span><span class="trs trs-aa">AA 2</span><span class="trs trs-elc">E 20</span><span class="trs trs-src">GMAO</span></div></div>
+            <div class="type-row-item"><div class="tr-dot" style="background:var(--teal2)"></div><div class="tr-code">GCBTR.J0000000</div><div class="tr-name">Câble Transformateur</div><div class="tr-stats"><span class="trs trs-tot">15</span><span class="trs trs-aa0">AA 0</span><span class="trs trs-elc">E 15</span><span class="trs trs-src">GMAO</span></div></div>
+            <div class="type-row-item"><div class="tr-dot" style="background:var(--teal2)"></div><div class="tr-code">GCOUP.J0000000</div><div class="tr-name">Coupleur de Tableaux</div><div class="tr-stats"><span class="trs trs-tot">4</span><span class="trs trs-aa">AA 4</span><span class="trs trs-elc">E 4</span><span class="trs trs-src">GMAO</span></div></div>
+          </div></div>
+          <div class="cat-item"><div class="cat-head" onclick="toggleCat(this)"><div class="cat-tog">+</div><div class="cat-name">Transformateurs</div><span class="cat-badge" style="background:var(--teal-bg);color:var(--teal);border-color:var(--teal-bd)">L3 · 1 type</span><span class="cat-badge" style="background:var(--red-bg);color:var(--red);border-color:var(--red-bd);margin-left:4px">AA 16</span><div class="cat-count" style="color:var(--teal)">16</div></div>
+          <div class="type-rows"><div class="type-row-item"><div class="tr-dot" style="background:var(--teal2)"></div><div class="tr-code">GTREL.J0000000</div><div class="tr-name">Transformateur</div><div class="tr-stats"><span class="trs trs-tot">16</span><span class="trs trs-aa">AA 16</span><span class="trs trs-elc">E 16</span><span class="trs trs-src">GMAO</span></div></div></div></div>
+          <div class="cat-item"><div class="cat-head" onclick="toggleCat(this)"><div class="cat-tog">+</div><div class="cat-name">Batteries / UPS / Redresseurs</div><span class="cat-badge" style="background:var(--teal-bg);color:var(--teal);border-color:var(--teal-bd)">L3 · 2 types</span><span class="cat-badge" style="background:var(--red-bg);color:var(--red);border-color:var(--red-bd);margin-left:4px">AA 87</span><div class="cat-count" style="color:var(--teal)">87</div></div>
+          <div class="type-rows">
+            <div class="type-row-item"><div class="tr-dot" style="background:var(--teal2)"></div><div class="tr-code">GBCEL.J0000000</div><div class="tr-name">Cellule de Batterie</div><div class="tr-stats"><span class="trs trs-tot">44</span><span class="trs trs-aa">AA 44</span><span class="trs trs-elc">E 44</span><span class="trs trs-src">GMAO</span></div></div>
+            <div class="type-row-item"><div class="tr-dot" style="background:var(--teal2)"></div><div class="tr-code">GUFEL.J0000000</div><div class="tr-name">UPS / Filtre Électrique</div><div class="tr-stats"><span class="trs trs-tot">43</span><span class="trs trs-aa">AA 43</span><span class="trs trs-elc">E 43</span><span class="trs trs-src">GMAO</span></div></div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CLASSE C : I&C ── -->
+    <div class="cls-row">
+      <div class="cls-stripe" style="background:var(--amber2)"></div>
+      <div class="cls-head" onclick="toggleCls(this)">
+        <div class="ch-left">
+          <div class="ch-tog">+</div>
+          <div class="ch-class-id" style="color:var(--amber);border-color:var(--amber-bd);background:var(--amber-bg)">CLASSE C</div>
+          <div class="ch-icon">🎛</div>
+          <div class="ch-info">
+            <div class="ch-name">Instrumentation & Contrôle</div>
+            <div class="ch-norm">ISO 14224 · L2 · Instrumentation & Control · Discipline : Électrique</div>
+          </div>
+        </div>
+        <div class="ch-stats">
+          <div class="cs" style="border-color:var(--amber-bd)"><div class="cs-v" style="color:var(--amber)">1 338</div><div class="cs-l">Total</div></div>
+          <div class="cs-sep"></div>
+          <div class="cs r"><div class="cs-v">533</div><div class="cs-l">AA</div></div>
+          <div class="cs-sep"></div>
+          <div class="cs t"><div class="cs-v">1 338</div><div class="cs-l">Élec</div></div>
+        </div>
+      </div>
+      <div class="cls-body">
+        <div class="cat-rows">
+          <div class="cat-item"><div class="cat-head" onclick="toggleCat(this)"><div class="cat-tog">+</div><div class="cat-name">Régulation / Instruments de Mesure</div><span class="cat-badge" style="background:var(--amber-bg);color:var(--amber);border-color:var(--amber-bd)">L3 · 1 type</span><span class="cat-badge" style="background:var(--red-bg);color:var(--red);border-color:var(--red-bd);margin-left:4px">AA 396</span><div class="cat-count" style="color:var(--amber)">1 195</div></div>
+          <div class="type-rows"><div class="type-row-item"><div class="tr-dot" style="background:var(--amber2)"></div><div class="tr-code">GPREG.J0000000</div><div class="tr-name">Régulateur / Instrument de Mesure</div><div class="tr-stats"><span class="trs trs-tot">1 195</span><span class="trs trs-aa">AA 396</span><span class="trs trs-elc">E 1195</span><span class="trs trs-src">GMAO</span></div></div></div></div>
+          <div class="cat-item"><div class="cat-head" onclick="toggleCat(this)"><div class="cat-tog">+</div><div class="cat-name">Vannes de Régulation &amp; Isolement</div><span class="cat-badge" style="background:var(--amber-bg);color:var(--amber);border-color:var(--amber-bd)">L3 · 3 types</span><span class="cat-badge" style="background:var(--red-bg);color:var(--red);border-color:var(--red-bd);margin-left:4px">AA 137</span><div class="cat-count" style="color:var(--amber)">143</div></div>
+          <div class="type-rows">
+            <div class="type-row-item"><div class="tr-dot" style="background:var(--amber2)"></div><div class="tr-code">GVRVT.JELEC000</div><div class="tr-name">Vanne Électrique</div><div class="tr-stats"><span class="trs trs-tot">112</span><span class="trs trs-aa">AA 112</span><span class="trs trs-elc">E 112</span><span class="trs trs-src">GMAO</span></div></div>
+            <div class="type-row-item"><div class="tr-dot" style="background:var(--amber2)"></div><div class="tr-code">GVRVT.J0000000</div><div class="tr-name">Vanne de Régulation</div><div class="tr-stats"><span class="trs trs-tot">25</span><span class="trs trs-aa">AA 25</span><span class="trs trs-elc">E 25</span><span class="trs trs-src">GMAO</span></div></div>
+            <div class="type-row-item"><div class="tr-dot" style="background:var(--amber2)"></div><div class="tr-code">GVANN.JEAU0000</div><div class="tr-name">Vanne d'Eau</div><div class="tr-stats"><span class="trs trs-tot">6</span><span class="trs trs-aa0">AA 0</span><span class="trs trs-elc">E 6</span><span class="trs trs-src">GMAO</span></div></div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CLASSE D : STATIQUES + À QUALIFIER ── -->
+    <div class="cls-row">
+      <div class="cls-stripe" style="background:var(--muted)"></div>
+      <div class="cls-head" onclick="toggleCls(this)">
+        <div class="ch-left">
+          <div class="ch-tog">+</div>
+          <div class="ch-class-id" style="color:var(--sub);border-color:var(--line)">CLASSE D</div>
+          <div class="ch-icon">🏗</div>
+          <div class="ch-info">
+            <div class="ch-name">Équipements Statiques &amp; À Qualifier</div>
+            <div class="ch-norm">ISO 14224 · L2 · Static Equipment · 43 classés + 526 en attente de classification</div>
+          </div>
+        </div>
+        <div class="ch-stats">
+          <div class="cs m"><div class="cs-v">569</div><div class="cs-l">Total</div></div>
+          <div class="cs-sep"></div>
+          <div class="cs r"><div class="cs-v">133</div><div class="cs-l">AA</div></div>
+          <div class="cs-sep"></div>
+          <div class="cs" style="border-color:var(--amber-bd)"><div class="cs-v" style="color:var(--amber)">526</div><div class="cs-l">À qualifier</div></div>
+        </div>
+      </div>
+      <div class="cls-body">
+        <div class="cat-rows">
+          <div class="cat-item"><div class="cat-head" onclick="toggleCat(this)"><div class="cat-tog">+</div><div class="cat-name">Filtres / Condenseurs / Cuves</div><span class="cat-badge" style="background:var(--panel);color:var(--sub);border-color:var(--line)">L3 · 4 types</span><span class="cat-badge" style="background:var(--red-bg);color:var(--red);border-color:var(--red-bd);margin-left:4px">AA 7</span><div class="cat-count" style="color:var(--sub)">10</div></div>
+          <div class="type-rows">
+            <div class="type-row-item"><div class="tr-dot" style="background:var(--muted)"></div><div class="tr-code">GFLTR.JBOUIL00</div><div class="tr-name">Filtre Bouilleur</div><div class="tr-stats"><span class="trs trs-tot">7</span><span class="trs trs-aa">AA 7</span><span class="trs trs-mec">M 7</span><span class="trs trs-src">GMAO</span></div></div>
+            <div class="type-row-item"><div class="tr-dot" style="background:var(--muted)"></div><div class="tr-code">GFLTR.JACID000</div><div class="tr-name">Filtre Acide</div><div class="tr-stats"><span class="trs trs-tot">1</span><span class="trs trs-aa0">AA 0</span><span class="trs trs-mec">M 1</span><span class="trs trs-src">GMAO</span></div></div>
+            <div class="type-row-item"><div class="tr-dot" style="background:var(--muted)"></div><div class="tr-code">GCNDS.J0000000</div><div class="tr-name">Condenseur</div><div class="tr-stats"><span class="trs trs-tot">2</span><span class="trs trs-aa0">AA 0</span><span class="trs trs-mec">M 2</span><span class="trs trs-src">GMAO</span></div></div>
+            <div class="type-row-item"><div class="tr-dot" style="background:var(--muted)"></div><div class="tr-code">GVNTR.J0000000</div><div class="tr-name">Cuve / Ventre</div><div class="tr-stats"><span class="trs trs-tot">1</span><span class="trs trs-aa0">AA 0</span><span class="trs trs-mec">M 1</span><span class="trs trs-src">GMAO</span></div></div>
+          </div></div>
+          <div class="cat-item"><div class="cat-head" onclick="toggleCat(this)"><div class="cat-tog">+</div><div class="cat-name">Réducteurs Statiques / Variateurs</div><span class="cat-badge" style="background:var(--panel);color:var(--sub);border-color:var(--line)">L3 · 2 types</span><span class="cat-badge" style="background:var(--red-bg);color:var(--red);border-color:var(--red-bd);margin-left:4px">AA 23</span><div class="cat-count" style="color:var(--sub)">23</div></div>
+          <div class="type-rows">
+            <div class="type-row-item"><div class="tr-dot" style="background:var(--muted)"></div><div class="tr-code">GBREG.J0000000</div><div class="tr-name">Boîte de Réduction</div><div class="tr-stats"><span class="trs trs-tot">19</span><span class="trs trs-aa">AA 19</span><span class="trs trs-mec">M 19</span><span class="trs trs-src">GMAO</span></div></div>
+            <div class="type-row-item"><div class="tr-dot" style="background:var(--muted)"></div><div class="tr-code">GRFDR.J0000000</div><div class="tr-name">Variateur Fréquence Drive</div><div class="tr-stats"><span class="trs trs-tot">4</span><span class="trs trs-aa">AA 4</span><span class="trs trs-mec">M 4</span><span class="trs trs-src">GMAO</span></div></div>
+          </div></div>
+          <div class="cat-item"><div class="cat-head" onclick="toggleCat(this)"><div class="cat-tog">+</div><div class="cat-name">⚠ À Qualifier — ACAP · Ligne E · CAP</div><span class="cat-badge" style="background:var(--amber-bg);color:var(--amber);border-color:var(--amber-bd)">EN COURS</span><span class="cat-badge" style="background:var(--red-bg);color:var(--red);border-color:var(--red-bd);margin-left:4px">AA: ND</span><div class="cat-count" style="color:var(--red)">526</div></div>
+          <div class="type-rows">
+            <div class="type-row-item" style="background:rgba(185,28,28,.02);border-left:2px solid var(--red-bd)"><div class="tr-dot" style="background:var(--red)"></div><div class="tr-code" style="color:var(--red)">SRC : ACAP</div><div class="tr-name">Éjecteurs, Échangeurs, Circuits, Bouilleurs, Condenseurs — code groupe absent</div><div class="tr-stats"><span class="trs trs-tot">449</span><span class="trs trs-pend">À classer</span><span class="trs trs-mec">M 428</span></div></div>
+            <div class="type-row-item" style="background:rgba(185,28,28,.02);border-left:2px solid var(--red-bd)"><div class="tr-dot" style="background:var(--red)"></div><div class="tr-code" style="color:var(--red)">SRC : LIGNE E</div><div class="tr-name">Agitateurs, Pompes Circulation, Flash-coolers — code groupe absent</div><div class="tr-stats"><span class="trs trs-tot">53</span><span class="trs trs-pend">À classer</span><span class="trs trs-mec">M 53</span></div></div>
+            <div class="type-row-item" style="background:rgba(146,64,14,.02);border-left:2px solid var(--amber-bd)"><div class="tr-dot" style="background:var(--amber2)"></div><div class="tr-code" style="color:var(--amber)">SRC : CAP</div><div class="tr-name">Pompes, Condenseurs — classification partielle (6/28)</div><div class="tr-stats"><span class="trs trs-tot">22</span><span class="trs" style="background:var(--amber-bg);color:var(--amber);border-color:var(--amber-bd)">Partiel</span><span class="trs trs-mec">M 22</span></div></div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /iso-tree -->
+
+  <!-- CONFORMITE -->
+  <div class="conf-panel">
+    <div class="conf-head">
+      <div class="conf-head-title">État de Conformité ISO 14224 — Installation Phosphorique PA</div>
+      <div class="conf-head-note">DIAGNOSTIC · MARS 2026</div>
+    </div>
+    <div class="conf-metrics">
+      <div class="conf-m ok" data-pct="82"><div class="cm-lbl">Équipements Classifiés</div><div class="cm-val">81.9%</div><div class="cm-sub">2 379 / 2 905 équipements</div><div class="cm-bar"><div class="cm-fill" data-w="81.9"></div></div></div>
+      <div class="conf-m warn" data-pct="18"><div class="cm-lbl">À Qualifier</div><div class="cm-val">18.1%</div><div class="cm-sub">526 éq. — 3 sources</div><div class="cm-bar"><div class="cm-fill" data-w="18.1"></div></div></div>
+      <div class="conf-m ok" data-pct="4"><div class="cm-lbl">Niveaux Taxonomiques</div><div class="cm-val">4 / 4</div><div class="cm-sub">L1 · L2 · L3 · L4 couverts</div><div class="cm-bar"><div class="cm-fill" data-w="100"></div></div></div>
+      <div class="conf-m bad" data-pct="0"><div class="cm-lbl">Criticité Nouvelle Étude</div><div class="cm-val">0 / 2 905</div><div class="cm-sub">Non renseignée — Action urgente</div><div class="cm-bar"><div class="cm-fill" data-w="0"></div></div></div>
+    </div>
+  </div>
+
+  <!-- GAPS TABLE -->
+  <div class="gaps-table-wrap">
+    <div class="gt-head">
+      <div class="gt-title">Plan de Mise en Conformité ISO 14224 — 6 Écarts Identifiés</div>
+      <div class="gt-note">PRIORITÉ DÉCROISSANTE</div>
+    </div>
+    <table class="gt">
+      <thead><tr><th>Réf.</th><th>Écart Identifié</th><th>Source</th><th>Volume</th><th>Impact</th><th>Action Requise</th><th>Statut</th></tr></thead>
+      <tbody>
+        <tr><td style="font-family:var(--mono);font-weight:700;color:var(--red)">G-01</td><td style="font-weight:600;color:var(--ink)">Code Groupe Équipement absent</td><td style="font-family:var(--mono);font-size:10px">ACAP</td><td style="font-family:var(--mono);font-weight:700;color:var(--blue)">449</td><td>Classification L3/L4 impossible</td><td>Attribuer codes GMAO selon désignations</td><td><span class="pill p-aa">À FAIRE</span></td></tr>
+        <tr><td style="font-family:var(--mono);font-weight:700;color:var(--red)">G-02</td><td style="font-weight:600;color:var(--ink)">Criticité Nouvelle Étude vide</td><td style="font-family:var(--mono);font-size:10px">Tous</td><td style="font-family:var(--mono);font-weight:700;color:var(--blue)">2 905</td><td>Comparaison historique impossible</td><td>Renseigner colonne entière</td><td><span class="pill p-aa">À FAIRE</span></td></tr>
+        <tr><td style="font-family:var(--mono);font-weight:700;color:var(--amber)">G-03</td><td style="font-weight:600;color:var(--ink)">Ligne E sans code groupe</td><td style="font-family:var(--mono);font-size:10px">Ligne E</td><td style="font-family:var(--mono);font-weight:700;color:var(--blue)">53</td><td>Homogénéité taxonomique non assurée</td><td>Intégrer dans nomenclature GMAO U03</td><td><span class="pill p-warn">EN COURS</span></td></tr>
+        <tr><td style="font-family:var(--mono);font-weight:700;color:var(--amber)">G-04</td><td style="font-weight:600;color:var(--ink)">CAP partiellement classée</td><td style="font-family:var(--mono);font-size:10px">CAP</td><td style="font-family:var(--mono);font-weight:700;color:var(--blue)">22</td><td>6/28 éq. avec code groupe seulement</td><td>Compléter les 22 équipements restants</td><td><span class="pill p-warn">PARTIEL</span></td></tr>
+        <tr><td style="font-family:var(--mono);font-weight:700;color:var(--amber)">G-05</td><td style="font-weight:600;color:var(--ink)">Section Propriétaire non renseignée</td><td style="font-family:var(--mono);font-size:10px">ACAP · CAP</td><td style="font-family:var(--mono);font-weight:700;color:var(--blue)">471</td><td>Localisation fonctionnelle incomplète</td><td>Définir sections selon structure U04</td><td><span class="pill p-aa">À FAIRE</span></td></tr>
+        <tr><td style="font-family:var(--mono);font-weight:700;color:var(--green)">G-06</td><td style="font-weight:600;color:var(--ink)">N° Équipement structuré (GMAO)</td><td style="font-family:var(--mono);font-size:10px">GMAO</td><td style="font-family:var(--mono);font-weight:700;color:var(--green)">2 375</td><td>Format JL-MP-PA-Uxx — conforme</td><td>Étendre aux autres sources</td><td><span class="pill p-ok">CONFORME</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div><!-- /inner -->
+</div><!-- /page-2 -->
+
+</div><!-- /page-wrap -->
+
+<script>
+/* ── PAGE SWITCH ── */
+function switchPage(n) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tb-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + n).classList.add('active');
+  document.querySelectorAll('.tb-tab')[n-1].classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ── UNIT ACCORDION ── */
+function toggleUnit(id) {
+  const el = document.getElementById(id);
+  el.classList.toggle('open');
+  el.querySelector('.uh-tog').textContent = el.classList.contains('open') ? '›' : '›';
+  el.querySelector('.uh-tog').style.transform = el.classList.contains('open') ? 'rotate(90deg)' : 'rotate(0)';
+}
+// init open state
+document.querySelectorAll('.unit-acc.open .uh-tog').forEach(t => t.style.transform = 'rotate(90deg)');
+
+/* ── EXPAND ROW ── */
+function exp(id) {
+  const r = document.getElementById(id);
+  r.classList.toggle('show');
+}
+
+/* ── ISO CLASS ACCORDION ── */
+function toggleCls(btn) {
+  const row = btn.closest('.cls-row');
+  const isOpen = row.classList.toggle('open');
+  btn.querySelector('.ch-tog').textContent = isOpen ? '−' : '+';
+}
+
+/* ── CAT ACCORDION ── */
+function toggleCat(btn) {
+  const item = btn.closest('.cat-item');
+  const isOpen = item.classList.toggle('open');
+  btn.querySelector('.cat-tog').textContent = isOpen ? '−' : '+';
+}
+
+/* ── PROGRESS BAR ANIMATION ── */
+function animateBars() {
+  document.querySelectorAll('.pbar-fill[data-w]').forEach(el => {
+    el.style.width = '0';
+    el.style.transition = 'none';
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        el.style.transition = 'width 1.1s cubic-bezier(.16,1,.3,1)';
+        el.style.width = el.dataset.w + '%';
+      });
+    });
+  });
+  document.querySelectorAll('.cm-fill[data-w]').forEach(el => {
+    el.style.width = '0';
+    setTimeout(() => {
+      el.style.transition = 'width 1.4s cubic-bezier(.16,1,.3,1)';
+      el.style.width = el.dataset.w + '%';
+    }, 200);
+  });
+}
+window.addEventListener('load', animateBars);
+document.querySelectorAll('.tb-tab').forEach(tab => {
+  tab.addEventListener('click', () => setTimeout(animateBars, 50));
+});
+
+/* ── CHART.JS INITIALISATION ── */
+function initCharts() {
+  const mono = "'IBM Plex Mono', monospace";
+  const ELEC  = '#0f8a72';
+  const MECA  = '#2067f5';
+  const AA    = '#dc2626';
+  const NOAA  = '#e2e6ee';
+  const GRID  = 'rgba(0,0,0,.05)';
+
+  Chart.defaults.font.family = "'IBM Plex Sans', sans-serif";
+
+  /* CHART 1 — Électrique vs Mécanique par Unité */
+  const ctx1 = document.getElementById('chartDisc');
+  if(ctx1) new Chart(ctx1, {
+    type: 'bar',
+    data: {
+      labels: ['Unité 03\n(IDJ/PA)', 'U04 ACAP', 'U04 CAP', 'Ligne E'],
+      datasets: [
+        { label: 'Électrique', data: [2174, 21, 0, 3], backgroundColor: ELEC, borderRadius: 4, borderSkipped: false },
+        { label: 'Mécanique',  data: [201, 428, 28, 50], backgroundColor: MECA, borderRadius: 4, borderSkipped: false }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false },
+        tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ' + ctx.raw.toLocaleString('fr') } }
+      },
+      scales: {
+        x: { grid: { display: false }, ticks: { font: { size: 10 }, color: '#8693a4' } },
+        y: { grid: { color: GRID }, ticks: { font: { size: 10, family: mono }, color: '#8693a4',
+          callback: v => v >= 1000 ? (v/1000).toFixed(1)+'k' : v } }
+      }
+    }
+  });
+
+  /* CHART 2 — Criticité AA sections U03 */
+  const ctx2 = document.getElementById('chartAA');
+  if(ctx2) new Chart(ctx2, {
+    type: 'bar',
+    data: {
+      labels: ['S-ER-03-PA', 'S-M-BME-04', 'S-M-U03-PA', 'S-ERU03-PA', 'S-M-BMR-04', 'ST_INS'],
+      datasets: [
+        { label: 'AA',     data: [640, 495, 125, 35, 19, 1], backgroundColor: AA,   borderRadius: 4, borderSkipped: false },
+        { label: 'Non AA', data: [845, 197, 11,   0,  0, 0], backgroundColor: NOAA, borderRadius: 4, borderSkipped: false }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false },
+        tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ' + ctx.raw.toLocaleString('fr') } }
+      },
+      scales: {
+        x: { stacked: true, grid: { display: false }, ticks: { font: { size: 9 }, color: '#8693a4', maxRotation: 25 } },
+        y: { stacked: true, grid: { color: GRID }, ticks: { font: { size: 10, family: mono }, color: '#8693a4',
+          callback: v => v >= 1000 ? (v/1000).toFixed(1)+'k' : v } }
+      }
+    }
+  });
+
+  /* CHART 3 — Donut criticité globale */
+  const ctx3 = document.getElementById('chartDonut');
+  if(ctx3) new Chart(ctx3, {
+    type: 'doughnut',
+    data: {
+      labels: ['AA 1 423', 'B 346', 'A 48', 'C 35'],
+      datasets: [{ data: [1423, 346, 48, 35],
+        backgroundColor: ['#dc2626','#b45309','#166534','#8693a4'],
+        borderWidth: 2, borderColor: '#ffffff', hoverOffset: 6
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: true,
+      cutout: '65%',
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => ' ' + ctx.label + ' éq.' } }
+      }
+    }
+  });
+}
+
+window.addEventListener('load', initCharts);
+document.querySelectorAll('.tb-tab')[0].addEventListener('click', () => {
+  setTimeout(initCharts, 60);
+});
+</script>
+</body>
+</html>
